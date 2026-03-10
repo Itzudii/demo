@@ -81,7 +81,11 @@ class API:
         self._window.evaluate_js(f'navigateToBreadcrumbId(null,{(id)})')   
 
     def navigate_to_parent(self,id:int):
-        self._window.evaluate_js(f'navigateToBreadcrumbParent(null,{(id)})')   
+        node = self._ctrl.fs.tree.get(id)
+        if node:
+            p_node = node.parent
+            p_id = p_node.id if p_node else id
+            self._window.evaluate_js(f'navigateToBreadcrumbParent(null,{(p_id)})')   
        
 
     def rename(self,*args:Any):

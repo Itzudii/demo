@@ -85,20 +85,6 @@
         const history = [];
         let historyIndex = -1;
 
-        const commands = {
-            help: () => [
-                { type: 'success', text: 'Available commands:' },
-                { type: 'info',    text: '  help     — show this help message' },
-                { type: 'info',    text: '  clear    — clear the terminal' },
-                { type: 'info',    text: '  date     — show current date & time' },
-                { type: 'info',    text: '  whoami   — display current user' },
-                { type: 'info',    text: '  echo ... — print text to terminal' },
-            ],
-            clear: () => { output.innerHTML = ''; return []; },
-            date: () => [{ type: 'info', text: new Date().toString() }],
-            whoami: () => [{ type: 'success', text: 'user (uid=1000, groups=sudo,docker)' }],
-        };
-
         function addLine(text, type = 'info', delay = 0) {
             const line = document.createElement('div');
             line.className = `output-line ${type}`;
@@ -122,9 +108,20 @@
                 addLine(`<span style="color:var(--accent)">${cwd} ❯</span> ${val}`, 'cmd');
 
                 const response = await window.pywebview.api.run_command(input.value)
+
+                console.log(response);
                 if (response){
                     if (response.success){
-                        addLine(response.result,'info',50)
+                        if (response.islist){
+                            response.result.forEach(element => {
+
+                                addLine(element,'info',1)
+                                
+                            });
+                        }else{
+                            
+                            addLine(response.result,'info',50)
+                        }
                     }else{
 
                         addLine(response.result,'error',50)
@@ -155,7 +152,7 @@
         });
 
         // Auto-focus
-        window.addEventListener('click', () => input.focus());
+        // window.addEventListener('click', () => input.focus());
         input.focus();
     </script>
 </body>

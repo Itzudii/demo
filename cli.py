@@ -3,7 +3,7 @@ File Management System
 Copyright (c) 2026 Uditya Patel
 Licensed under the MIT License.
 """
-from dependencies.useful import filemode_readable,formate_sttime
+from dependencies.useful import filemode_readable,formate_sttime,bytes_to_mb,get_filemode
 from fsmanager import FSManager
 
 import os
@@ -12,10 +12,11 @@ from typing  import Dict,Any
 
 logger = logging.getLogger("FS")
 
-def cli_result(success:bool,result:str)->Dict[str,Any]:
+def cli_result(success:bool,result:str,islist)->Dict[str,Any]:
     return {
         "success":success,
-        "result":result
+        "result":result,
+        'islist': islist
     }
 class CliPerformer:
     def __init__(self,fs:FSManager) -> None:
@@ -26,11 +27,11 @@ class CliPerformer:
     # Helpers
     # ------------------------------
     
-    def ok(self, msg:str):
-        return cli_result(True, msg)
+    def ok(self, msg:str,islist = False):
+        return cli_result(True, msg, islist)
     
-    def error(self, msg:str):
-        return cli_result(False, msg)
+    def error(self, msg:str,islist = False):
+        return cli_result(False, msg, islist)
     
     # ------------------------------
     # Commands
@@ -153,37 +154,41 @@ class CliPerformer:
 
 
     def _info(self, command):
-        try:
+        # try:
             _, path = command.strip().split(" ", 1)
             data = self.fs.get_node_by_path(path)
-            node = data['result']
+            node_ = data['result']
             msg = data['message']
 
-            if node:
+            if node_:
+                node = self.fs.db.get_node(node_.id)
+                meta = self.fs.get_meta(node)
                 result = (
-                    f'\npath: {node.path}'
-                    f'\nname: {node.name}'
-                    f'\nchilds: {node.childs}'
-                    f'\ntype: {node.type}'
-                    f'\nstate: {node.state}'
-                    f'\ninner_state: {node.inner_state}'
-                    f'\nislocked: {node.islocked}'
-                    f'\nlock_hash: {node.lock_hash}'
-                    f'\nhash: {node.hash}'
-                    f'\nvector: {node.vector}'
-                    f'\ntags: {node.tags}'
-                    f'\nsize: {node.size}'
-                    f'\nmodified_time: {formate_sttime(node.modified_time)}'
-                    f'\ncreated_time: {formate_sttime(node.created_time)}'
-                    f'\nmode: {filemode_readable(node.mode)}'
+                    f'id: {meta.get('id')}',
+                    f'name: {meta.get('name')}',
+                    f'path: {meta.get('path')}',
+                    f'type: {meta.get('type')}',
+                    f'state: {meta.get('state')}',
+                    f'indicator: {meta.get('indicator')}',
+                    f'islocked: {meta.get('islocked')}',
+                    f'locked_hash: {meta.get('locked_hash')}',
+                    f'ext: {meta.get('ext')}',
+                    f'hash: {meta.get('hash')}',
+                    f'vector: {meta.get('vector')}',
+                    f'tags: {meta.get('tags')}',
+                    f'size: {bytes_to_mb(meta.get('size'))} MB',
+                    f'modified_time: {formate_sttime(meta.get('modified_time'))}',
+                    f'created_time: {formate_sttime(meta.get('created_time'))}',
+                    f'mode: {filemode_readable(get_filemode(int(meta.get('mode'))))}',
+                    f'parent_id: {meta.get('parent_id')}',
                 )
-                return self.ok(result)
+                return self.ok(result,True)
 
             return self.error(msg)
 
-        except Exception as e:
-            logger.error(f'{e}')
-            return self.error(str(e))
+        # except Exception as e:
+        #     logger.error(f'{e}')
+        #     return self.error(str(e))
 
 
     def _rename(self, command):
@@ -304,6 +309,73 @@ class CliPerformer:
             return self.ok(self.fs._stats())
         return self.error(f'Invalid argument: {base[1]}')
 
+    def _help(self, command):
+        help_data = {
+            "ls": "ls\n    List files and folders in current directory",
+
+            "cd": "cd <path>\n    Change directory\n    cd folder\n    cd ./   (go back)",
+
+            "pwd": "pwd\n    Show current working directory",
+
+            "prd": "prd\n    Show root directory path",
+
+            "refresh": "refresh\n    Refresh current directory\n    refresh --deep  (refresh full filesystem from root)",
+
+            "open": "open <path>\n    Open file with default application",
+
+            "cut": "cut <source> <destination>\n    Move file or folder (not implemented yet)",
+
+            "copy": "copy <source> <destination>\n    Copy file or folder (not implemented yet)",
+
+            "del": "del <path>\n    Delete file or directory",
+
+            "mkdir": "mkdir <path>\n    Create new directory",
+
+            "mkf": "mkf <path> <content>\n    Create file and write content",
+
+            "append": "append <path> <content>\n    Append content to existing file",
+
+            "info": "info <path>\n    Show metadata about file or folder",
+
+            "rename": "rename <old_path> <new_name>\n    Rename file or folder (not implemented yet)",
+
+            "tree": "tree\n    Show directory structure (not implemented yet)",
+
+            "search": "search <name>\n    Search files by name (not implemented yet)",
+
+            "find": "find <path>\n    Find duplicate files using hash",
+
+            "tag": "tag <path>\n    Generate tags for file",
+
+            "verify": "verify <path>\n    Check if file is corrupted",
+
+            "hash": "hash <path>\n    Show file hash",
+
+            "dup": "dup\n    Find duplicate files in filesystem",
+
+            "status": "status\n    Show filesystem status",
+
+            "stats": "stats\n    Show filesystem statistics",
+
+            "help": "help\n    Show all commands\n    help <command>  (show help for one command)"
+        }
+
+        base = command.split()
+
+        # show all commands
+        if len(base) == 1:
+            # text = "Available commands:\n\n"
+            # for cmd, desc in help_data.items():
+            #     text += f"{desc}\n\n"
+            return self.ok([f'{cmd}:{desc}' for cmd, desc in help_data.items()],True)
+
+        # show help for one command
+        cmd = base[1]
+        if cmd in help_data:
+            return self.ok(help_data[cmd])
+
+        return self.error(f"No help available for '{cmd}'")
+
 
     def process_user_task(self,command):
         base = command.split()[0]
@@ -331,8 +403,8 @@ class CliPerformer:
             "hash":self._hash,
             "dup":self._dup,
             "status":self._status,
-            "stats":self._stats
-            # "help":self._help
+            "stats":self._stats,
+            "help":self._help
         }
         output = commands.get(base, lambda c: f'{c} not found')(command)
 

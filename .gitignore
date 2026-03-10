@@ -1,6 +1,6 @@
 .venv/
 __pycache__/
-.database/
+.database
 .save/
 model/
 logs/

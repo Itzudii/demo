@@ -27,7 +27,7 @@ class MrVectorExpert:
     def load_model(self)->None:
         logger.info(r"model\\all-MiniLM-L6-v2")
 
-        self.model = SentenceTransformer("all-MiniLM-L6-v2")
+        self.model = SentenceTransformer(r"model\\all-MiniLM-L6-v2")
         self.isModelLoaded = True
 
         logger.info("all_miniLM model loaded successfully")

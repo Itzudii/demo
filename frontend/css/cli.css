@@ -13,6 +13,12 @@
             --blue: #4db8ff;
             --prompt: #00d4ff;
         }
+        .content {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -ms-user-select: text !important;
+}
+
 
         * {
             margin: 0;
@@ -74,7 +80,7 @@
             background: #080a0d;
             border-bottom: 1px solid var(--border);
             flex-shrink: 0;
-            user-select: none;
+            /* user-select: none; */
         }
 
         .traffic-lights {

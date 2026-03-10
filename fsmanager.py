@@ -146,8 +146,6 @@ class FSManager:
 
                     self.tag_queue.put(self.get_path(node.id))
                    
-
-
     def normalize_path(self,path:str)->str: # verified
         driver,path = path.split(':',1)
         path = driver.lower()+':'+path
@@ -550,7 +548,16 @@ class FSManager:
     """
     > DELETE
     """
+    def collect_metadata_parent_id(self,parent_id:int): # verified
+        meta_data:Dict[int,Tuple[Any]] = dict()
+        get_meta =  self.get_meta
+        all_nodes = self.db.get_node_by_parent(parent_id)
 
+        if all_nodes:
+            for node in all_nodes:
+                meta_data[node[0]] = get_meta(node)
+        return meta_data
+    
     def _delete_internal(self,del_node:TreeNode): # verified
         pop_node = self.tree.id_to_node.pop
         stack = [del_node]
@@ -594,18 +601,9 @@ class FSManager:
             if node:
                 self.delete_node(node)
 
-            
-
-    # def trash(self,filepath):
-
     """
     > CUT > COPY > PASTE
     """
-    # def _set_pointer(self,node): # verified remove this 
-    #     self.pointer = node
-
-    # def _get_pointer(self): # verified remove this
-    #     return self.pointer
     
     def cut(self): # verified
         if self.state == 'ideal':
@@ -620,17 +618,7 @@ class FSManager:
                 self.state = 'copy'
                 # self._set_pointer(self.cwd)
                 logger.info("copy mode activated")
-
-    def collect_metadata_parent_id(self,parent_id:int): # verified
-        meta_data:Dict[int,Tuple[Any]] = dict()
-        get_meta =  self.get_meta
-        all_nodes = self.db.get_node_by_parent(parent_id)
-
-        if all_nodes:
-            for node in all_nodes:
-                meta_data[node[0]] = get_meta(node)
-        return meta_data
-     
+   
     def _paste_for_move(self): # verified
         def _paste_for_move_helper(node:TreeNode)->bool:
             try:
@@ -705,7 +693,6 @@ class FSManager:
         with open(filepath,"a") as f:
             f.write(f'{content}\n')
 
-        
     def _create_dir_memory(self,dir_name:str,p_node:Optional[TreeNode]= None): # verified
         if p_node is None:
             p_node = self.cwd
@@ -1120,8 +1107,6 @@ class FSManager:
             return self.tree.get_ext(ext)
         return []
 
-    
-
     def ultra_search(self,search_for:str,search_where:str,prifix:str,extension:str,substring:str)->List[Dict[str,Any]]:
         results:List[int|None] =[]
         Both = True if search_for == 'fd' else False
@@ -1214,8 +1199,10 @@ class FSManager:
         CONTEXT
     """
     def context_search(self,query:str):
+        print(query)
         tags = query.split(',')
         vector:Any = self.mrvec.convert_tags_to_vector(tags)
+        print(tags)
 
         blobs = self.db.get_all_blobs()
         ids:List[int] = []
@@ -1226,19 +1213,25 @@ class FSManager:
             ids.append(id_)
             vectors.append(arr)
         
-        vectors = np.vstack(vectors)
+        if vectors:
+        
+            vectors = np.vstack(vectors)
 
 
-        results = self.mrvec.search_by_vector(vector,vectors,ids)
-        final_result:List[Dict[str,Any]] = []
-        tree_get = self.tree.get
-        for id in results:
-            node = tree_get(id)
-            final_result.append({
-                'name':node.name,
-                'id':node.id,
-            })
-        return final_result
+            results = self.mrvec.search_by_vector(vector,vectors,ids)
+            final_result:List[Dict[str,Any]] = []
+            tree_get = self.tree.get
+            for id in results:
+                node = tree_get(id)
+                final_result.append({
+                    'name':node.name,
+                    'id':node.id,
+                })
+            return final_result
+        return [{
+                    'name':"no value found",
+                    'id':self.root.id,
+                }]
 
     
     """
