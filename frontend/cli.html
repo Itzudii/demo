@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cli.css">
+    <!-- <script src="js/"></script> -->
+     <link rel="shortcut icon" href="img/logo_transparent.png" type="image/x-icon">
+
+
+</head>
+<body>
+    <div class="window-frame">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <span class="title-text">bash — 80×24</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+                <div class="status-dot"></div>
+                <span class="title-meta">connected</span>
+            </div>
+        </div>
+
+        <div class="cli-board">
+            <div class="content" id="output">
+                <div class="banner">
+                    <div class="banner-title">// TERMINAL v2.4.1</div>
+                    <div class="banner-sub" style="margin-top:6px;">
+                        <span class="tag ver">v2.4.1</span>
+                        <span class="tag os">linux/x86_64</span>
+                    </div>
+                    <div class="banner-sub" style="margin-top:8px;">Type <span style="color:var(--accent)">help</span> for a list of available commands.</div>
+                </div>
+
+                <div class="output-line system" style="animation-delay:0.2s">
+                    <span class="line-prefix">›</span>
+                    <span>System initialized. All services nominal.</span>
+                </div>
+                <div class="output-line info" style="animation-delay:0.35s">
+                    <span class="line-prefix">›</span>
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus cupiditate nihil eum a minima iste, quae, animi esse iusto incidunt dolore ut tenetur?</span>
+                </div>
+                <div class="output-line warn" style="animation-delay:0.5s">
+                    <span class="line-prefix">›</span>
+                    <span>Excepturi dolore perspiciatis illo vero et esse?</span>
+                </div>
+                <hr class="divider" style="animation-delay:0.6s">
+            </div>
+
+            <div class="input-area">
+                <div class="input-row">
+                    <div class="prompt-badge">
+                        <span class="prompt-user">user</span>
+                        <span class="prompt-sep">@</span>
+                        <span class="prompt-path">~/home</span>
+                        <span class="prompt-arrow">❯</span>
+                    </div>
+                    <input
+                        class="cmd-input"
+                        type="text"
+                        id="cmdInput"
+                        autocomplete="off"
+                        spellcheck="false"
+                        placeholder="enter command..."
+                    />
+                </div>
+                <div class="input-hint">
+                    <span class="hint-key"><kbd>↑↓</kbd> history</span>
+                    <span class="hint-key"><kbd>Tab</kbd> autocomplete</span>
+                    <span class="hint-key"><kbd>Ctrl+C</kbd> interrupt</span>
+                    <span class="hint-key"><kbd>Enter</kbd> execute</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('cmdInput');
+        const output = document.getElementById('output');
+        const history = [];
+        let historyIndex = -1;
+
+        const commands = {
+            help: () => [
+                { type: 'success', text: 'Available commands:' },
+                { type: 'info',    text: '  help     — show this help message' },
+                { type: 'info',    text: '  clear    — clear the terminal' },
+                { type: 'info',    text: '  date     — show current date & time' },
+                { type: 'info',    text: '  whoami   — display current user' },
+                { type: 'info',    text: '  echo ... — print text to terminal' },
+            ],
+            clear: () => { output.innerHTML = ''; return []; },
+            date: () => [{ type: 'info', text: new Date().toString() }],
+            whoami: () => [{ type: 'success', text: 'user (uid=1000, groups=sudo,docker)' }],
+        };
+
+        function addLine(text, type = 'info', delay = 0) {
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.style.animationDelay = `${delay}ms`;
+            line.innerHTML = `<span class="line-prefix">›</span><span>${text}</span>`;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        input.addEventListener('keydown', async (e) => {
+            if (e.key === 'Enter') {
+                const val = input.value.trim();
+                if (!val) return;
+
+                history.unshift(val);
+                historyIndex = -1;
+
+                let cwd = await window.pywebview.api.get_cwd();
+
+                // Echo the command
+                addLine(`<span style="color:var(--accent)">${cwd} ❯</span> ${val}`, 'cmd');
+
+                const response = await window.pywebview.api.run_command(input.value)
+                if (response){
+                    if (response.success){
+                        addLine(response.result,'info',50)
+                    }else{
+
+                        addLine(response.result,'error',50)
+                    }
+                }
+
+                input.value = '';
+            }
+
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex < history.length - 1) {
+                    historyIndex++;
+                    input.value = history[historyIndex];
+                }
+            }
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    input.value = history[historyIndex];
+                } else {
+                    historyIndex = -1;
+                    input.value = '';
+                }
+            }
+        });
+
+        // Auto-focus
+        window.addEventListener('click', () => input.focus());
+        input.focus();
+    </script>
+</body>
+</html>

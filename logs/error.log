@@ -1,0 +1,13 @@
+2026-03-09 22:22:56,766 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:270 | [WinError 3] The system cannot find the path specified: "d:/don'tDelete/Desktop/Cortex-FS - Copy/FS/demo_d/New_Folder/New_Folder"
+2026-03-09 22:22:59,510 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:270 | [WinError 3] The system cannot find the path specified: "d:/don'tDelete/Desktop/Cortex-FS - Copy/FS/demo_d/New_Folder/New_Folder"
+2026-03-09 22:46:21,390 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:647 | [WinError 2] The system cannot find the file specified
+2026-03-09 22:46:33,975 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:647 | [WinError 2] The system cannot find the file specified
+2026-03-09 22:58:49,365 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:652 | [WinError 2] The system cannot find the file specified
+2026-03-09 23:19:29,861 | ERROR | FS | MainThread | tree.py:111 | Orphan node found: New_Folder (parent_id: 17)
+2026-03-09 23:26:10,195 | ERROR | FS | MainThread | tree.py:111 | Orphan node found: New_Folder (parent_id: 17)
+2026-03-09 23:40:49,357 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:530 | open > d:\don'tDelete\Desktop\Cortex-FS - Copy\FS\demo_d\New_Folder\New_File.txt : not found
+2026-03-09 23:41:01,013 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:530 | open > d:\don'tDelete\Desktop\Cortex-FS - Copy\FS\demo_d\New_Folder\New_File.txt : not found
+2026-03-09 23:41:11,004 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:530 | open > d:\don'tDelete\Desktop\Cortex-FS - Copy\FS\demo_d\New_Folder\New_File.txt : not found
+2026-03-09 23:41:12,605 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:530 | open > d:\don'tDelete\Desktop\Cortex-FS - Copy\FS\demo_d\New_Folder\New_File.txt : not found
+2026-03-09 23:41:22,524 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:530 | open > d:\don'tDelete\Desktop\Cortex-FS - Copy\FS\demo_d\New_Folder\New_File.txt : not found
+2026-03-09 23:41:28,165 | ERROR | FS | Thread-1 (fs_background) | fsmanager.py:530 | open > d:\don'tDelete\Desktop\Cortex-FS - Copy\FS\demo_d\New_Folder\New_File.txt : not found
