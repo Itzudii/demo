@@ -81,6 +81,7 @@ class FSManager:
         self.average_extS_time = 0
 
         self.log = LogManager(active,processing)
+        self.last_id = self.db.get_next_id()
       
    
     def needs_rehash(self,node, st:stat_result):
@@ -167,10 +168,8 @@ class FSManager:
 
         return '/'.join(reversed(stack))
         
-    
     def get_cwd(self)->str:
         return self.get_path(self.cwd.id)
-
 
     '''                                                                                
         CORE FEATURE OF FILE MANGEMENT SYSTEM 
@@ -185,7 +184,7 @@ class FSManager:
             normalize = self.normalize_path
 
             nodes:List[Tuple[Any,...]]=[]
-            last_id = self.db.get_next_id()
+            # last_id = self.db.get_next_id()
 
             while stack:
                 node = stack.pop()
@@ -194,8 +193,9 @@ class FSManager:
                 try:
                     internal = node.childs
                     seen:Set[str] = set()
-                    if internal:
-                        for item in os.scandir(path):
+                    
+                    for item in os.scandir(path):
+                            print(item.name,item.path)
 
                             name = item.name
                             seen.add(name)
@@ -205,6 +205,7 @@ class FSManager:
 
                             # CREATE
                             if node_ is None:
+                                print("create node",name)
                                 is_dir = item.is_dir(follow_symlinks=False)
                                 data = name_ext(name)
                                 path_ = normalize(item.path)
@@ -212,7 +213,7 @@ class FSManager:
                             #    enqueue db
                                 # 
                                 nodes.append((
-                                last_id,
+                                self.last_id,
                                 name,
                                 path_,
                                 'd' if is_dir else 'f',
@@ -226,20 +227,20 @@ class FSManager:
 
                                 # add new node
                                 newNode = TreeNode(name,is_dir)
-                                newNode.id = last_id
+                                newNode.id = self.last_id
                                 node.childs[name] = newNode
                                 newNode.parent = node
                                 newNode.size =  st.st_size
                                 newNode.m_time =  st.st_mtime
                                 newNode.is_hidden = data.get('ishidden',False)
 
-                                self.tree.set(last_id, newNode)
+                                self.tree.set(self.last_id, newNode)
 
                                 if not is_dir:
                                     self.rehash_queue.put(path_)
 
                                 node_ = newNode
-                                last_id+=1
+                                self.last_id+=1
                             else:
                                 if not node_.is_locked:
                                     if node_.indicator != 'sync':
@@ -265,7 +266,7 @@ class FSManager:
 
 
                         # DELETE
-                        for name in tuple(internal):
+                    for name in tuple(internal):
                             if name not in seen:
                                 d_node = internal[name]
                                 self._delete_internal(d_node)
@@ -284,9 +285,9 @@ class FSManager:
         normalize = self.normalize_path
 
         st = os.stat(DEFAULT_PATH)
-        last_id = self.db.get_next_id()
-        print(last_id,'last_id')
-        nodes:List[Tuple[Any,...]] = [(last_id,
+        # last_id = self.db.get_next_id()
+        # print(last_id,'last_id')
+        nodes:List[Tuple[Any,...]] = [(self.last_id,
             DEFAULT_NAME,
             DEFAULT_PATH,
             'd',
@@ -298,7 +299,7 @@ class FSManager:
             None
         )]
 
-        parent_id = [last_id]
+        parent_id = [self.last_id]
         while paths:
             path = paths.pop()
             p_id = parent_id.pop()
@@ -312,9 +313,9 @@ class FSManager:
                         data = name_ext(name)
                         path_ = normalize(item.path)
                         
-                        last_id+=1
+                        self.last_id+=1
                         nodes.append((#no vector and hash after ext
-                            last_id,
+                            self.last_id,
                             name,
                             path_,
                             'd' if is_dir else 'f',
@@ -329,7 +330,7 @@ class FSManager:
                         self.count_ += 1
                         if is_dir and not item.is_symlink():
                             paths.append(path_)
-                            parent_id.append(last_id)
+                            parent_id.append(self.last_id)
                     except Exception as e:
                         logger.error(f'{e}')
 
@@ -375,7 +376,7 @@ class FSManager:
                 normalize = self.normalize_path
 
                 
-                last_id = self.db.get_next_id()
+                # last_id = self.db.get_next_id()
 
                 while stack:
                     node = stack.pop()
@@ -402,7 +403,7 @@ class FSManager:
                             #    enqueue db
                                 
                                 nodes.append((#no vector and hash after ext
-                                last_id,
+                                self.last_id,
                                 name,
                                 path_,
                                 'd' if is_dir else 'f',
@@ -416,7 +417,7 @@ class FSManager:
 
                                 # add new node
                                 newNode = TreeNode(name,is_dir)
-                                newNode.id = last_id
+                                newNode.id = self.last_id
                                 node.childs[name] = newNode
                                 newNode.parent = node
                                 newNode.size =  st.st_size
@@ -424,13 +425,13 @@ class FSManager:
                                 newNode.is_hidden = data.get('ishidden',False)
 
 
-                                self.tree.set(last_id, newNode)
+                                self.tree.set(self.last_id, newNode)
 
                                 if not is_dir and newNode.is_hidden:
                                     self.rehash_queue.put(path_)
 
                                 node_ = newNode
-                                last_id+=1
+                                self.last_id+=1
                             else:
                                 # path_= self.normalize_path(item.path)
                                 if not node_.is_locked:
@@ -491,21 +492,7 @@ class FSManager:
     def quick_refresh_cwd(self):
         self._refresh_quick(self.cwd)
     
-    # def create_id_to_node(self): # verified
-    #     id_to_node = dict() 
-    #     stack = [self.root]
-
-    #     id_to_node[self.root.id] = self.root
-
-    #     while stack:
-    #         node = stack.pop()
-    #         for node_ in node.childs.values():
-    #             id_to_node[node_.id] = node_
-    #             if node_.is_dir:
-    #                 stack.append(node_)
-        
-    #     self.id_to_node = id_to_node
-
+   
     """
        > SELECT > UNSELECT > SELECTALL > UNSELECTALL
     """ 
@@ -735,17 +722,16 @@ class FSManager:
         if p_node is None and self.cwd:
             p_node = self.cwd
 
-        last_id = self.db.get_next_id()
+        # last_id = self.db.get_next_id()
 
         p_path = self.get_path(p_node.id)
 
         new_dir_path = '/'.join([p_path,dir_name])
   
         st = os.stat(new_dir_path)
-        # last_id +=1
         self.urgent_request({
             "name":"add_node",
-            "para":(last_id,
+            "para":(self.last_id,
                     dir_name,
                     new_dir_path,
                     'd',
@@ -761,12 +747,13 @@ class FSManager:
       
         newNode = TreeNode(dir_name,True)
         newNode.parent = p_node
-        newNode.id = last_id
+        newNode.id = self.last_id
         newNode.size = st.st_size
         newNode.m_time = st.st_mtime
         p_node.childs[dir_name] = newNode
 
-        self.tree.set(last_id, newNode)
+        self.tree.set(self.last_id, newNode)
+        self.last_id +=1
         return newNode
     
     def _create_file_memory(self,file_name:str,content:str="",p_node:Optional[TreeNode]= None): # verified
@@ -784,7 +771,7 @@ class FSManager:
     def _create_file_internal(self,file_name:str,p_node:Optional[TreeNode]= None): # verified
         if p_node is None:
             p_node = self.cwd
-        last_id = self.db.get_next_id()
+        # last_id = self.db.get_next_id()
         p_path = self.get_path(p_node.id)
         new_file_path = '/'.join([p_path,file_name])
         st = os.stat(new_file_path)
@@ -792,7 +779,7 @@ class FSManager:
         # last_id+=1
         self.urgent_request({
             "name":"add_node",
-            "para":(last_id,
+            "para":(self.last_id,
                     file_name,
                     new_file_path,
                     'f',
@@ -810,12 +797,13 @@ class FSManager:
 
         newNode = TreeNode(file_name,False)
         newNode.parent = p_node
-        newNode.id = last_id
+        newNode.id = self.last_id
         p_node.childs[file_name] = newNode
         newNode.size = st.st_size
         newNode.m_time = st.st_mtime
 
-        self.tree.set(last_id, newNode)
+        self.tree.set(self.last_id, newNode)
+        self.last_id +=1
         return newNode
 
     def create_dir(self,dir_name:str,p_node:Optional[TreeNode]= None): # verified
@@ -1334,9 +1322,6 @@ class FSManager:
             self.normal_request({"name":'commit',
                                      "para":()})
             
-            # self.db.commit()
-      
-
         return True
 
     def background_index_step2(self,db:Storage):

@@ -134,3 +134,710 @@
 2026-03-10 18:58:45,261 | INFO | FS | Thread-1 (fs_background) | controller.py:152 | Safely Tread Exit
 2026-03-10 18:58:52,882 | INFO | FS | Thread-73 (execute) | controller.py:108 | Tag worker stopped
 2026-03-10 18:58:52,882 | INFO | FS | Thread-73 (execute) | controller.py:93 | CLOSED
+2026-03-10 19:41:14,097 | INFO | FS | MainThread | api.py:208 | FS starts=====>
+2026-03-10 19:41:14,097 | INFO | FS | MainThread | controller.py:51 | Controller init...
+2026-03-10 19:41:14,097 | INFO | FS | MainThread | fsmanager.py:41 | FSManager init...
+2026-03-10 19:41:14,097 | INFO | FS | MainThread | storage.py:15 | Storage init...
+2026-03-10 19:41:14,098 | INFO | FS | MainThread | vector.py:21 | MrVectorExpert init...
+2026-03-10 19:41:14,099 | INFO | FS | MainThread | vector.py:28 | all_miniLM model loading
+2026-03-10 19:41:20,426 | INFO | FS | MainThread | vector.py:33 | all_miniLM model loaded successfully
+2026-03-10 19:41:20,426 | INFO | FS | MainThread | tree.py:59 | Loading tree from DB...
+2026-03-10 19:41:20,427 | INFO | FS | MainThread | tree.py:113 | Tree loaded from DB.
+2026-03-10 19:41:20,427 | INFO | FS | MainThread | logmanger.py:15 | LogManager init...
+2026-03-10 19:41:20,427 | INFO | FS | MainThread | cli.py:22 | CliPerformer init...
+2026-03-10 19:41:20,427 | INFO | FS | MainThread | controller.py:79 | TAG PROCESS STARTS
+2026-03-10 19:41:20,434 | INFO | FS | Thread-1 (fs_background) | storage.py:15 | Storage init...
+2026-03-10 19:41:20,434 | INFO | FS | MainThread | controller.py:87 | TASK PROCESS TREAD STARTS
+2026-03-10 19:41:20,435 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:124 | FS start up init...
+2026-03-10 19:41:20,436 | INFO | FS | Thread-1 (fs_background) | controller.py:116 | background tread starts
+2026-03-10 19:41:22,171 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:41:22,171 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:22,172 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:41:22,192 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:41:22,193 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:22,197 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:41:22,197 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:22,201 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:41:22,201 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:43,925 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: find_dup
+2026-03-10 19:41:43,925 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:47,389 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: find_dup
+2026-03-10 19:41:47,389 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:49,156 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: find_dup
+2026-03-10 19:41:49,156 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:53,749 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: find_dup
+2026-03-10 19:41:53,749 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:41:57,452 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: find_dup
+2026-03-10 19:41:57,452 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:01,726 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: open
+2026-03-10 19:42:01,726 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:01,729 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:01,729 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:01,729 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:01,734 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:01,734 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:01,739 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:01,739 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:01,741 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:01,741 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:03,797 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: go_to_id
+2026-03-10 19:42:03,797 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:03,797 | WARNING | FS | Thread-1 (fs_background) | fsmanager.py:544 | node not found:open_id
+2026-03-10 19:42:03,801 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:03,801 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:03,801 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:03,805 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:03,805 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:03,808 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:03,808 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:03,811 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:03,811 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:06,868 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:06,868 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:06,868 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:06,872 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:06,872 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:06,875 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:06,875 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:06,880 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:06,880 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:07,652 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:07,652 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:07,653 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:07,656 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:07,656 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:07,659 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:07,659 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:07,663 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:07,664 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,053 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:08,053 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,053 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:08,057 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:08,057 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,062 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:08,062 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,064 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:08,064 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,245 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:08,245 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,245 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:08,249 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:08,249 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,252 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:08,252 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,257 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:08,257 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,429 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:08,429 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,429 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:08,433 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:08,433 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,437 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:08,437 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,441 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:08,441 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,612 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:08,612 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,613 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:08,616 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:08,616 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,619 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:08,619 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:08,622 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:08,622 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:09,468 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:09,468 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:09,468 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:09,472 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:09,472 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:09,475 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:09,475 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:09,479 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:09,479 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:13,814 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:42:13,814 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:13,814 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:42:13,818 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:42:13,818 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:13,821 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:42:13,821 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:42:13,824 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:42:13,824 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:13,389 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: delete
+2026-03-10 19:44:13,389 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:13,505 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:44:13,505 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:13,505 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:44:13,510 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:44:13,510 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:13,513 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:44:13,513 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:13,518 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:44:13,518 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:16,309 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: delete
+2026-03-10 19:44:16,309 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:16,365 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:44:16,365 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:16,366 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:44:16,369 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:44:16,369 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:16,372 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:44:16,372 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:16,375 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:44:16,375 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:24,006 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: open
+2026-03-10 19:44:24,006 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:24,011 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:44:24,011 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:24,011 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:44:24,015 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:44:24,015 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:24,019 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:44:24,019 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:24,024 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:44:24,024 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:25,973 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: go_to_id
+2026-03-10 19:44:25,973 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:25,973 | WARNING | FS | Thread-1 (fs_background) | fsmanager.py:544 | node not found:open_id
+2026-03-10 19:44:25,976 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:44:25,976 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:25,977 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:44:25,980 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:44:25,981 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:25,984 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:44:25,984 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:25,987 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:44:25,987 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:33,917 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: delete
+2026-03-10 19:44:33,917 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:34,033 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:44:34,034 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:34,034 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:44:34,073 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:44:34,073 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:34,101 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:44:34,101 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:44:34,140 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:44:34,140 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:07,860 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: paste
+2026-03-10 19:45:07,861 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:07,864 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:07,864 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:07,864 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:07,867 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:07,867 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:07,870 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:07,870 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:07,876 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:07,876 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,227 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: paste
+2026-03-10 19:45:08,227 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,231 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:08,231 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,231 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:08,234 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:08,234 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,238 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:08,238 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,242 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:08,242 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,388 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: paste
+2026-03-10 19:45:08,388 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,392 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:08,392 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,392 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:08,394 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:08,394 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,397 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:08,397 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:08,400 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:08,401 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:20,501 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:20,501 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:20,502 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:20,506 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:20,506 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:20,509 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:20,509 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:20,512 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:20,513 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:22,020 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:22,020 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:22,021 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:22,024 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:22,024 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:22,027 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:22,027 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:22,030 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:22,030 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:25,043 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: paste
+2026-03-10 19:45:25,043 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:25,048 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:25,048 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:25,048 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:25,051 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:25,051 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:25,056 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:25,056 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:25,061 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:25,061 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:27,365 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: paste
+2026-03-10 19:45:27,365 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:27,368 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:27,368 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:27,368 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:27,372 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:27,372 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:27,376 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:27,376 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:27,381 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:27,381 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:31,077 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:31,077 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:31,077 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:31,081 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:31,081 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:31,084 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:31,084 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:31,087 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:31,087 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,396 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:34,396 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,396 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:34,400 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:34,400 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,403 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:34,403 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,404 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:34,404 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,549 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:34,549 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,549 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:34,554 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:34,554 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,558 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:34,558 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,561 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:34,561 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,700 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:34,700 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,700 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:34,704 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:34,704 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,708 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:34,708 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,712 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:34,712 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,852 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:45:34,852 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,852 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:45:34,856 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:45:34,856 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,857 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:45:34,858 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:45:34,861 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:45:34,862 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:47:37,828 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:47:37,828 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:47:37,828 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:273 | loop finsh
+2026-03-10 19:47:37,831 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:47:37,832 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:47:37,834 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:47:37,834 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:47:37,837 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:47:37,837 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:47:41,535 | INFO | FS | Thread-158 (execute) | controller.py:90 | CLOSING..
+2026-03-10 19:47:41,536 | INFO | FS | Thread-1 (fs_background) | controller.py:152 | Safely Tread Exit
+2026-03-10 19:47:41,537 | INFO | FS | Thread-158 (execute) | controller.py:108 | Tag worker stopped
+2026-03-10 19:47:41,537 | INFO | FS | Thread-158 (execute) | controller.py:93 | CLOSED
+2026-03-10 19:47:58,710 | INFO | FS | MainThread | api.py:208 | FS starts=====>
+2026-03-10 19:47:58,710 | INFO | FS | MainThread | controller.py:51 | Controller init...
+2026-03-10 19:47:58,711 | INFO | FS | MainThread | fsmanager.py:41 | FSManager init...
+2026-03-10 19:47:58,711 | INFO | FS | MainThread | storage.py:15 | Storage init...
+2026-03-10 19:47:58,712 | INFO | FS | MainThread | vector.py:21 | MrVectorExpert init...
+2026-03-10 19:47:58,712 | INFO | FS | MainThread | vector.py:28 | all_miniLM model loading
+2026-03-10 19:48:03,580 | INFO | FS | MainThread | vector.py:33 | all_miniLM model loaded successfully
+2026-03-10 19:48:03,580 | INFO | FS | MainThread | tree.py:59 | Loading tree from DB...
+2026-03-10 19:48:03,580 | INFO | FS | MainThread | tree.py:113 | Tree loaded from DB.
+2026-03-10 19:48:03,580 | INFO | FS | MainThread | logmanger.py:15 | LogManager init...
+2026-03-10 19:48:03,580 | INFO | FS | MainThread | cli.py:22 | CliPerformer init...
+2026-03-10 19:48:03,580 | INFO | FS | MainThread | controller.py:79 | TAG PROCESS STARTS
+2026-03-10 19:48:03,587 | INFO | FS | Thread-1 (fs_background) | storage.py:15 | Storage init...
+2026-03-10 19:48:03,587 | INFO | FS | MainThread | controller.py:87 | TASK PROCESS TREAD STARTS
+2026-03-10 19:48:03,588 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:124 | FS start up init...
+2026-03-10 19:48:03,589 | INFO | FS | Thread-1 (fs_background) | controller.py:116 | background tread starts
+2026-03-10 19:48:04,987 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:48:04,987 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:04,988 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:274 | loop finsh
+2026-03-10 19:48:05,016 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:48:05,016 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:05,020 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:48:05,020 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:05,023 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:48:05,024 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:09,915 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:48:09,916 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:09,916 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:274 | loop finsh
+2026-03-10 19:48:09,919 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 19:48:09,919 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:09,923 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 19:48:09,923 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:09,927 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 19:48:09,927 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:14,092 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: create_folder
+2026-03-10 19:48:14,092 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:14,092 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:714 | directory created at:d:/don'tDelete/Desktop/Cortex-FS - Copy/FS/demo_d\New_Folder
+2026-03-10 19:48:14,093 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:810 | create in dir > New_Folder
+2026-03-10 19:48:14,096 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 19:48:14,096 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 19:48:14,097 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:274 | loop finsh
+2026-03-10 19:48:51,180 | INFO | FS | Thread-36 (execute) | controller.py:90 | CLOSING..
+2026-03-10 19:48:58,648 | INFO | FS | Thread-36 (execute) | controller.py:108 | Tag worker stopped
+2026-03-10 19:48:58,648 | INFO | FS | Thread-36 (execute) | controller.py:93 | CLOSED
+2026-03-10 20:37:54,922 | INFO | FS | MainThread | api.py:208 | FS starts=====>
+2026-03-10 20:37:54,965 | INFO | FS | MainThread | controller.py:51 | Controller init...
+2026-03-10 20:37:54,966 | INFO | FS | MainThread | fsmanager.py:41 | FSManager init...
+2026-03-10 20:37:54,966 | INFO | FS | MainThread | storage.py:15 | Storage init...
+2026-03-10 20:37:55,736 | INFO | FS | MainThread | vector.py:21 | MrVectorExpert init...
+2026-03-10 20:37:55,736 | INFO | FS | MainThread | vector.py:28 | all_miniLM model loading
+2026-03-10 20:39:56,785 | INFO | FS | MainThread | vector.py:33 | all_miniLM model loaded successfully
+2026-03-10 20:39:56,786 | INFO | FS | MainThread | tree.py:59 | Loading tree from DB...
+2026-03-10 20:39:56,786 | INFO | FS | MainThread | tree.py:113 | Tree loaded from DB.
+2026-03-10 20:39:56,786 | INFO | FS | MainThread | logmanger.py:15 | LogManager init...
+2026-03-10 20:39:56,786 | INFO | FS | MainThread | cli.py:22 | CliPerformer init...
+2026-03-10 20:39:56,786 | INFO | FS | MainThread | controller.py:79 | TAG PROCESS STARTS
+2026-03-10 20:39:56,794 | INFO | FS | Thread-1 (fs_background) | storage.py:15 | Storage init...
+2026-03-10 20:39:56,794 | INFO | FS | MainThread | controller.py:87 | TASK PROCESS TREAD STARTS
+2026-03-10 20:39:56,795 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:125 | FS start up init...
+2026-03-10 20:39:56,796 | INFO | FS | Thread-1 (fs_background) | controller.py:116 | background tread starts
+2026-03-10 20:39:59,205 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:39:59,205 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:39:59,205 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:275 | loop finsh
+2026-03-10 20:39:59,209 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:39:59,209 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:39:59,214 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:39:59,214 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:39:59,218 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:39:59,218 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:04,561 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:40:04,561 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:04,561 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:275 | loop finsh
+2026-03-10 20:40:04,565 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:40:04,565 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:04,568 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:40:04,568 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:04,573 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:40:04,573 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:58,939 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:40:58,939 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:58,939 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:275 | loop finsh
+2026-03-10 20:40:58,943 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:40:58,943 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:58,946 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:40:58,946 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:40:58,949 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:40:58,950 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:42:30,394 | INFO | FS | Thread-37 (execute) | controller.py:90 | CLOSING..
+2026-03-10 20:42:30,396 | INFO | FS | Thread-1 (fs_background) | controller.py:152 | Safely Tread Exit
+2026-03-10 20:42:37,809 | INFO | FS | Thread-37 (execute) | controller.py:108 | Tag worker stopped
+2026-03-10 20:42:37,809 | INFO | FS | Thread-37 (execute) | controller.py:93 | CLOSED
+2026-03-10 20:42:50,882 | INFO | FS | MainThread | api.py:208 | FS starts=====>
+2026-03-10 20:42:50,882 | INFO | FS | MainThread | controller.py:51 | Controller init...
+2026-03-10 20:42:50,882 | INFO | FS | MainThread | fsmanager.py:41 | FSManager init...
+2026-03-10 20:42:50,882 | INFO | FS | MainThread | storage.py:15 | Storage init...
+2026-03-10 20:42:50,884 | INFO | FS | MainThread | vector.py:21 | MrVectorExpert init...
+2026-03-10 20:42:50,884 | INFO | FS | MainThread | vector.py:28 | all_miniLM model loading
+2026-03-10 20:46:37,641 | INFO | FS | MainThread | vector.py:33 | all_miniLM model loaded successfully
+2026-03-10 20:46:37,641 | INFO | FS | MainThread | tree.py:59 | Loading tree from DB...
+2026-03-10 20:46:37,641 | INFO | FS | MainThread | tree.py:113 | Tree loaded from DB.
+2026-03-10 20:46:37,641 | INFO | FS | MainThread | logmanger.py:15 | LogManager init...
+2026-03-10 20:46:37,641 | INFO | FS | MainThread | cli.py:22 | CliPerformer init...
+2026-03-10 20:46:37,641 | INFO | FS | MainThread | controller.py:79 | TAG PROCESS STARTS
+2026-03-10 20:46:37,648 | INFO | FS | Thread-1 (fs_background) | storage.py:15 | Storage init...
+2026-03-10 20:46:37,648 | INFO | FS | MainThread | controller.py:87 | TASK PROCESS TREAD STARTS
+2026-03-10 20:46:37,649 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:125 | FS start up init...
+2026-03-10 20:46:37,649 | INFO | FS | Thread-1 (fs_background) | controller.py:116 | background tread starts
+2026-03-10 20:46:38,992 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:46:38,992 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:46:38,993 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:46:39,015 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:46:39,015 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:46:39,018 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:46:39,018 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:46:39,022 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:46:39,022 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:46:52,785 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:46:52,785 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:46:52,785 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:46:52,789 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:46:52,789 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:46:52,792 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:46:52,792 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:46:52,796 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:46:52,796 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,288 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:13,289 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,289 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:13,292 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:13,292 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,295 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:13,296 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,297 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:13,297 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,490 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:13,490 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,490 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:13,492 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:13,492 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,495 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:13,495 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:13,499 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:13,499 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,049 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:14,049 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,049 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:14,053 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:14,053 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,056 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:14,056 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,059 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:14,059 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,218 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:14,218 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,218 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:14,222 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:14,222 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,225 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:14,225 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,228 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:14,228 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,385 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:14,385 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,385 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:14,389 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:14,389 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,393 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:14,393 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,397 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:14,397 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,850 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:14,850 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,850 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:14,854 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:14,854 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,857 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:14,857 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:14,861 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:14,861 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,049 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:15,049 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,049 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:15,054 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:15,054 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,057 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:15,058 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,059 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:15,059 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,209 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:15,209 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,209 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:15,213 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:15,213 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,218 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:15,218 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,221 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:15,221 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,368 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:15,368 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,368 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:15,372 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:15,372 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,375 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:15,375 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,376 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:15,377 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,529 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:15,529 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,529 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:15,532 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:15,532 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,534 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:15,534 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,539 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:15,539 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,690 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:15,690 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,690 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:15,693 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:15,693 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,695 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:15,695 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,698 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:15,698 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,985 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:15,985 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,985 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:15,990 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:15,990 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,992 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:15,992 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:15,995 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:15,995 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:16,433 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:47:16,434 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:16,434 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:47:16,437 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:47:16,437 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:16,440 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:47:16,440 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:47:16,443 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:47:16,443 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:48:41,407 | INFO | FS | Thread-85 (execute) | controller.py:90 | CLOSING..
+2026-03-10 20:48:41,408 | INFO | FS | Thread-1 (fs_background) | controller.py:152 | Safely Tread Exit
+2026-03-10 20:48:49,027 | INFO | FS | Thread-85 (execute) | controller.py:108 | Tag worker stopped
+2026-03-10 20:48:49,027 | INFO | FS | Thread-85 (execute) | controller.py:93 | CLOSED
+2026-03-10 20:50:44,103 | INFO | FS | MainThread | api.py:208 | FS starts=====>
+2026-03-10 20:50:44,103 | INFO | FS | MainThread | controller.py:51 | Controller init...
+2026-03-10 20:50:44,104 | INFO | FS | MainThread | fsmanager.py:41 | FSManager init...
+2026-03-10 20:50:44,104 | INFO | FS | MainThread | storage.py:15 | Storage init...
+2026-03-10 20:50:44,111 | INFO | FS | MainThread | vector.py:21 | MrVectorExpert init...
+2026-03-10 20:50:44,111 | INFO | FS | MainThread | vector.py:28 | model\\all-MiniLM-L6-v2
+2026-03-10 20:50:53,501 | INFO | FS | MainThread | vector.py:33 | all_miniLM model loaded successfully
+2026-03-10 20:50:53,501 | INFO | FS | MainThread | tree.py:59 | Loading tree from DB...
+2026-03-10 20:50:53,502 | INFO | FS | MainThread | tree.py:113 | Tree loaded from DB.
+2026-03-10 20:50:53,502 | INFO | FS | MainThread | logmanger.py:15 | LogManager init...
+2026-03-10 20:50:53,502 | INFO | FS | MainThread | cli.py:22 | CliPerformer init...
+2026-03-10 20:50:53,502 | INFO | FS | MainThread | controller.py:79 | TAG PROCESS STARTS
+2026-03-10 20:50:53,508 | INFO | FS | Thread-1 (fs_background) | storage.py:15 | Storage init...
+2026-03-10 20:50:53,509 | INFO | FS | MainThread | controller.py:87 | TASK PROCESS TREAD STARTS
+2026-03-10 20:50:53,509 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:125 | FS start up init...
+2026-03-10 20:50:53,510 | INFO | FS | Thread-1 (fs_background) | controller.py:116 | background tread starts
+2026-03-10 20:50:54,866 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:50:54,867 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:50:54,868 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:50:54,872 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:50:54,872 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:50:54,875 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:50:54,875 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:50:54,879 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:50:54,879 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:52,113 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: rename
+2026-03-10 20:51:52,114 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:52,115 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:963 | rename > 'grg' to 'grg'
+2026-03-10 20:51:52,531 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:51:52,531 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:52,532 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:51:52,535 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:51:52,535 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:52,539 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:51:52,539 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:52,542 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:51:52,542 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:59,473 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: rename
+2026-03-10 20:51:59,473 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:59,474 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:963 | rename > 'grrg' to 'grrg'
+2026-03-10 20:51:59,593 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:51:59,593 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:59,594 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:51:59,597 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:51:59,597 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:59,600 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:51:59,600 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:51:59,603 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:51:59,603 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:05,034 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: open
+2026-03-10 20:52:05,034 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:05,038 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:05,038 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:05,038 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:05,042 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:05,042 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:05,045 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:05,045 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:05,048 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:05,048 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:06,696 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: create_folder
+2026-03-10 20:52:06,696 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:06,697 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:716 | directory created at:d:/don'tDelete/Desktop/Cortex-FS - Copy/FS/demo_d/grrg\New_Folder
+2026-03-10 20:52:06,697 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:813 | create in dir > New_Folder
+2026-03-10 20:52:06,700 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:06,700 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:06,701 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:06,704 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:06,704 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:06,707 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:06,708 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:06,710 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:06,710 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,041 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: create_file
+2026-03-10 20:52:09,041 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,041 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:767 | file created at:d:/don'tDelete/Desktop/Cortex-FS - Copy/FS/demo_d/grrg\New_File.txt
+2026-03-10 20:52:09,042 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: rename
+2026-03-10 20:52:09,042 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,174 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:09,175 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,175 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:09,175 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:09,175 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,176 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:09,180 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:09,180 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,180 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:09,180 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,183 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:09,183 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,183 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:09,183 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,186 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:09,186 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:09,188 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:09,188 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:13,056 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: go_to_id
+2026-03-10 20:52:13,056 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:13,056 | WARNING | FS | Thread-1 (fs_background) | fsmanager.py:547 | node not found:open_id
+2026-03-10 20:52:13,059 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:13,059 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:13,060 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:13,064 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:13,064 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:13,067 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:13,067 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:13,071 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:13,071 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:15,457 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:15,457 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:15,457 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:15,462 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:15,462 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:15,465 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:15,465 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:15,468 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:15,468 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:16,745 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: open
+2026-03-10 20:52:16,745 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:16,749 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:16,749 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:16,750 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:16,753 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:16,754 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:16,757 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:16,757 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:16,760 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:16,760 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:18,553 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: go_to_id
+2026-03-10 20:52:18,553 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:18,553 | WARNING | FS | Thread-1 (fs_background) | fsmanager.py:547 | node not found:open_id
+2026-03-10 20:52:18,556 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: show_list
+2026-03-10 20:52:18,556 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:18,557 | INFO | FS | Thread-1 (fs_background) | fsmanager.py:276 | loop finsh
+2026-03-10 20:52:18,562 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_quick
+2026-03-10 20:52:18,562 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:18,565 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: path_breaker
+2026-03-10 20:52:18,565 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:18,569 | INFO | FS | Thread-1 (fs_background) | controller.py:122 | task found: get_cwd
+2026-03-10 20:52:18,569 | INFO | FS | Thread-1 (fs_background) | controller.py:163 | task run
+2026-03-10 20:52:21,401 | INFO | FS | Thread-78 (execute) | controller.py:90 | CLOSING..
+2026-03-10 20:52:21,454 | INFO | FS | Thread-1 (fs_background) | controller.py:152 | Safely Tread Exit
+2026-03-10 20:52:29,050 | INFO | FS | Thread-78 (execute) | controller.py:108 | Tag worker stopped
+2026-03-10 20:52:29,050 | INFO | FS | Thread-78 (execute) | controller.py:93 | CLOSED

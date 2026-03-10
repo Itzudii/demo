@@ -13,7 +13,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity 
 
 logger = logging.getLogger("FS")
-os.makedirs("save",exist_ok=True)
+# os.makedirs("save",exist_ok=True)
 
 COSINE_SIMILARITY_MINVALUE = 0.6
 class MrVectorExpert:
@@ -25,7 +25,7 @@ class MrVectorExpert:
         self.average_contextS_time = None
 
     def load_model(self)->None:
-        logger.info("all_miniLM model loading")
+        logger.info(r"model\\all-MiniLM-L6-v2")
 
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
         self.isModelLoaded = True
