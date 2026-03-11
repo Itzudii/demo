@@ -90,7 +90,7 @@ class CliPerformer:
     def _open(self, command):
         try:
             _, path = command.strip().split(" ", 1)
-            self.fs._open_file_with_default_app(path)
+            FSManager._open_file_with_default_app(path)
             return self.ok(f'Opened: {path}')
         except Exception as e:
             logger.error(f'{e}')
@@ -136,7 +136,7 @@ class CliPerformer:
     def _mkf(self, command):
         try:
             _, path, content = command.strip().split(" ", 2)
-            self.fs._write_content_to_file(path, content)
+            FSManager._write_content_to_file(path, content)
             return self.ok(f'File created: {path}')
         except Exception as e:
             logger.error(f'{e}')
@@ -146,7 +146,7 @@ class CliPerformer:
     def _append(self, command):
         try:
             _, path, content = command.strip().split(" ", 2)
-            self.fs._append_content_to_file(path, content)
+            FSManager._append_content_to_file(path, content)
             return self.ok(f'Content appended to: {path}')
         except Exception as e:
             logger.error(f'{e}')
@@ -162,7 +162,7 @@ class CliPerformer:
 
             if node_:
                 node = self.fs.db.get_node(node_.id)
-                meta = self.fs.get_meta(node)
+                meta = FSManager.get_meta(node)
                 result = (
                     f'id: {meta.get('id')}',
                     f'name: {meta.get('name')}',

@@ -83,8 +83,8 @@ class FSManager:
         self.log = LogManager(active,processing)
         self.last_id = self.db.get_next_id()
       
-   
-    def needs_rehash(self,node, st:stat_result):
+    @staticmethod
+    def needs_rehash(node:TreeNode, st:stat_result):
         """
         Decide whether file content hash must be recalculated
         """
@@ -105,7 +105,7 @@ class FSManager:
         return False
 
     def process_event(self,event):
-        path = self.normalize_path(event['path'])
+        path = FSManager.normalize_path(event['path'])
         data = self.get_node_by_path(path)
         node = data['result']
         if node is None:
@@ -145,8 +145,8 @@ class FSManager:
                 if node and not node.is_hidden:
 
                     self.tag_queue.put(self.get_path(node.id))
-                   
-    def normalize_path(self,path:str)->str: # verified
+    @staticmethod               
+    def normalize_path(path:str)->str: # verified
         driver,path = path.split(':',1)
         path = driver.lower()+':'+path
         return Path(path).as_posix()
@@ -179,7 +179,6 @@ class FSManager:
             stack:list[TreeNode] = [root_node]
             paths:list[str] = [root_path]
     
-            normalize = self.normalize_path
 
             nodes:List[Tuple[Any,...]]=[]
             # last_id = self.db.get_next_id()
@@ -206,7 +205,7 @@ class FSManager:
                                 print("create node",name)
                                 is_dir = item.is_dir(follow_symlinks=False)
                                 data = name_ext(name)
-                                path_ = normalize(item.path)
+                                path_ = FSManager.normalize_path(item.path)
 
                             #    enqueue db
                                 # 
@@ -246,8 +245,8 @@ class FSManager:
                                          "para":(node_.id,'sync')})
                                         node_.indicator = 'sync'
                                         
-                                if self.needs_rehash(node_, st):
-                                    path_= self.normalize_path(item.path)
+                                if FSManager.needs_rehash(node_, st):
+                                    path_= FSManager.normalize_path(item.path)
                                     if not node_.is_dir and not node_.is_hidden:
                                         self.rehash_queue.put(path_)
                                     self.normal_request({"name":'set_size',
@@ -280,7 +279,7 @@ class FSManager:
     def _refresh_first(self): # verified
         paths = [DEFAULT_PATH]
 
-        normalize = self.normalize_path
+        normalize = FSManager.normalize_path
 
         st = os.stat(DEFAULT_PATH)
         # last_id = self.db.get_next_id()
@@ -338,28 +337,6 @@ class FSManager:
         self.db.batch_add(nodes) 
         self.db.commit() 
 
-
-    def get_meta(self,node:List[Any])->Dict[str,Any]: # verified
-        return {
-            "id":node[0],
-           "name":node[1],
-           "path":node[2],
-           "type":node[3],
-           "state":node[4],
-           "indicator":node[5],
-           "islocked":node[6],
-           "locked_hash":node[7],
-           "ext":node[8],
-           "hash":node[9],
-           "vector":node[10],
-           "tags":node[11],
-           "size":node[12],
-           "modified_time":node[13],
-           "created_time":node[14],
-           "mode":node[15],
-           "parent_id":node[16]
-        }
-
     def _refresh(self, root_node): # verified
             root_path = self.get_path(root_node.id)
             nodes=[]
@@ -371,7 +348,7 @@ class FSManager:
 
                 paths:list[str] = [root_path]
 
-                normalize = self.normalize_path
+                normalize = FSManager.normalize_path
 
                 
                 # last_id = self.db.get_next_id()
@@ -431,13 +408,12 @@ class FSManager:
                                 node_ = newNode
                                 self.last_id+=1
                             else:
-                                # path_= self.normalize_path(item.path)
                                 if not node_.is_locked:
                                     if node_.indicator != 'sync':
                                         self.normal_request({"name":'set_indicator',
                                          "para":(node_.id,'sync')})
                                         node_.indicator = 'sync'
-                                if self.needs_rehash(node_, st):
+                                if FSManager.needs_rehash(node_, st):
                                     if not node_.is_dir and not node_.is_hidden:
                                         self.rehash_queue.put(path_)
                                     self.normal_request({"name":'set_size',
@@ -509,7 +485,8 @@ class FSManager:
     """
         > OPEN 
     """
-    def _open_file_with_default_app(self,file_path:str)->bool:   # verified
+    @staticmethod
+    def _open_file_with_default_app(file_path:str)->bool:   # verified
         file_path = os.path.abspath(file_path)  # make path absolute
         if not os.path.exists(file_path):
             logger.error(f"open > {file_path} : not found")
@@ -517,7 +494,6 @@ class FSManager:
         try:
             if sys.platform == "win32":                    # Windows
                 os.startfile(file_path)                    # simplest for Windows
-
             logger.info(f"open > {file_path} : successfully")
             return True
         except Exception as e:
@@ -529,7 +505,7 @@ class FSManager:
         if not node.is_dir:
            
             path = self.get_path(node.id)
-            self._open_file_with_default_app(path)
+            FSManager._open_file_with_default_app(path)
         else:
             if self.state == 'ideal':
                 self.unselect_all()
@@ -548,14 +524,35 @@ class FSManager:
     """
     > DELETE
     """
+    @staticmethod
+    def get_meta(node:List[Any])->Dict[str,Any]: # verified
+        return {
+            "id":node[0],
+           "name":node[1],
+           "path":node[2],
+           "type":node[3],
+           "state":node[4],
+           "indicator":node[5],
+           "islocked":node[6],
+           "locked_hash":node[7],
+           "ext":node[8],
+           "hash":node[9],
+           "vector":node[10],
+           "tags":node[11],
+           "size":node[12],
+           "modified_time":node[13],
+           "created_time":node[14],
+           "mode":node[15],
+           "parent_id":node[16]
+        }
+    
     def collect_metadata_parent_id(self,parent_id:int): # verified
         meta_data:Dict[int,Tuple[Any]] = dict()
-        get_meta =  self.get_meta
         all_nodes = self.db.get_node_by_parent(parent_id)
 
         if all_nodes:
             for node in all_nodes:
-                meta_data[node[0]] = get_meta(node)
+                meta_data[node[0]] = FSManager.get_meta(node)
         return meta_data
     
     def _delete_internal(self,del_node:TreeNode): # verified
@@ -685,11 +682,13 @@ class FSManager:
     """
     > CREATE
     """
-    def _write_content_to_file(self,filepath:str,content:str): # verified
+    @staticmethod
+    def _write_content_to_file(filepath:str,content:str): # verified
         with open(filepath,"w") as f:
             f.write(f'{content}\n')
 
-    def _append_content_to_file(self,filepath:str,content:str): # verified
+    @staticmethod
+    def _append_content_to_file(filepath:str,content:str): # verified
         with open(filepath,"a") as f:
             f.write(f'{content}\n')
 
@@ -750,7 +749,7 @@ class FSManager:
         new_file_path = os.path.join(p_path,file_name)
        
         if not os.path.exists(new_file_path):
-            self._write_content_to_file(new_file_path,content)
+            FSManager._write_content_to_file(new_file_path,content)
             logger.info(f"file created at:{new_file_path}")
             return True
         return False
@@ -815,7 +814,7 @@ class FSManager:
     
     def write_to_file(self,node:TreeNode,content:str): # verified
         if not node.is_dir:
-            self._write_content_to_file(self.get_path(node.id),content)
+            FSManager._write_content_to_file(self.get_path(node.id),content)
             self._refresh_quick(node.parent)
             logger.info(f"written to file > {node.name}")
         else:
@@ -823,7 +822,7 @@ class FSManager:
     
     def append_to_file(self,node:TreeNode,content:str): # verified
         if not node.is_dir:
-            self._append_content_to_file(self.get_path(node.id),content)
+            FSManager._append_content_to_file(self.get_path(node.id),content)
             self._refresh_quick(node.parent)
             logger.info(f"append to file > {node.name}")
         else:
@@ -893,8 +892,10 @@ class FSManager:
         self.open(prev_node)
 
     def go_to_address(self,path:str): # verified
-        driver,sub_path = path.split(':',1)
-        
+        try:
+            driver,sub_path = path.split(':',1)
+        except Exception as e:
+            return (False,e)
         path = driver.lower()+":"+sub_path
         data = self.get_node_by_path(path)
         r = data['result']
@@ -981,17 +982,19 @@ class FSManager:
     def get_node(self,filename:str)->Optional[TreeNode]: # verified
         return self.cwd.childs.get(filename)
 
-    def path_verifier(self,path:str)->bool: # verified
+    @staticmethod
+    def path_verifier(path:str)->bool: # verified
         return True if DEFAULT_PATH in path else False
-
-    def path_breaker(self,path:str)->List[str]: # verified
+    
+    @staticmethod
+    def path_breaker(path:str)->List[str]: # verified
         rootv=DEFAULT_PATH.split('/')
         pathv=path.split('/')
         length = len(rootv)
         return pathv[length:]
     
     def _path_break_to_dict(self,path:str)->Dict[Any,Any]: # verified
-        if self.path_verifier(path):
+        if FSManager.path_verifier(path):
             root_path = self.get_path(self.root.id)
             rootv=root_path.split('/')
             pathv=path.split('/')
@@ -1010,8 +1013,8 @@ class FSManager:
         return self._path_break_to_dict(self.get_path(self.cwd.id))
         
     def get_node_by_path(self,path:str)->Dict[str,Any]: # verified
-        if self.path_verifier(path):
-            results = self.path_breaker(path)
+        if FSManager.path_verifier(path):
+            results = FSManager.path_breaker(path)
             root = self.root
             for pathname in results:
                 if pathname in root.childs:
@@ -1030,8 +1033,8 @@ class FSManager:
                     'result':None,
                     'message':'path is incorrect or formate is incorrect'
             }
-
-    def get_sub_ids(self,start_node:TreeNode)->list[int]:
+    @staticmethod
+    def get_sub_ids(start_node:TreeNode)->list[int]:
         stack:List[TreeNode] = [start_node]
         ids:List[int] = []
         while stack:
@@ -1049,7 +1052,8 @@ class FSManager:
      > SEARCH
     """ 
     "PRIFIX AND EXTENSION"
-    def search_helper_prifix(self,root_node:TreeNode,prifix:str,results:List[int],type_:str,subdir:bool = True):
+    @staticmethod
+    def search_helper_prifix(root_node:TreeNode,prifix:str,results:List[int],type_:str,subdir:bool = True):
         stack = [root_node]
         is_dir = True if type_ == 'd' else False
         while stack:
@@ -1068,7 +1072,7 @@ class FSManager:
     def search_prifix(self,prifix:str,type_:str,subdir:bool = True):
         results:List[int] = []
         ns1 =time.perf_counter_ns()
-        self.search_helper_prifix(self.cwd,prifix,results,type_,subdir)
+        FSManager.search_helper_prifix(self.cwd,prifix,results,type_,subdir)
         ns2 =time.perf_counter_ns()
         self.average_prifixS_time = ns2-ns1
         return results
@@ -1085,7 +1089,7 @@ class FSManager:
     def search_helper_ext(self,node:TreeNode,ext:str,subdir:bool = True):
         if subdir:
             ext_ids = self.tree.get_ext(ext)
-            sub_ids = self.get_sub_ids(node)
+            sub_ids = FSManager.get_sub_ids(node)
 
             results = set(ext_ids)
             set_sub_ids = set(sub_ids)
@@ -1334,7 +1338,7 @@ class FSManager:
                 # self.rehash_queue.put(path_)
                 return False
             
-            meta = self.get_meta(node)
+            meta = FSManager.get_meta(node)
             self.changes_detector(meta)
       
         return True
