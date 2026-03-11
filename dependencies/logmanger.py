@@ -26,7 +26,7 @@ class LogManager:
 
         # 1️ process leftover processing.log
         if self.processing_log.exists():
-            events.extend(self._read_all(self.processing_log))
+            events.extend(LogManager._read_all(self.processing_log))
             self.processing_log.unlink(missing_ok=True)
 
         # 2️ freeze active.log into processing.log
@@ -34,7 +34,7 @@ class LogManager:
             time.sleep(0.1)  # avoid write collision
             self.active_log.rename(self.processing_log)
 
-            events.extend(self._read_all(self.processing_log))
+            events.extend(LogManager._read_all(self.processing_log))
             self.processing_log.unlink(missing_ok=True)
 
         # reset runtime reader

@@ -8,6 +8,18 @@ from fsmanager import FSManager
 import pyperclip
 from typing import List,Tuple,Any,Dict
 
+def base(isDone,msg,data={})->Dict[str,Any]:
+    return {
+        'success':isDone,
+        'msg' :msg
+    }|data
+
+def success(data:Dict={},msg:str=''):
+    return base(True,msg,data)
+
+def fail(msg:str='',data:Dict={}):
+    return base(False,msg,data)
+
 class TaskPerformer:
     def __init__(self, fs:FSManager):
         self.fs = fs
@@ -15,89 +27,98 @@ class TaskPerformer:
 
     def show_list(self):
         self.fs.quick_refresh_cwd()
-        return  self.fs.show_list()
+        data =   self.fs.show_list() 
+        return success({"data":data})
         
-
+        
     def open(self,name:str):
-        self.fs.go_to(name)
+        isSuccess,msg = self.fs.go_to(name)
+        return base(isSuccess,msg)
 
 
     def backward(self):
-        self.fs.go_back()
+        isSuccess,msg = self.fs.go_back()
+        return base(isSuccess,msg)
        
 
     def forward(self):
-        self.fs.go_forward()
+        isSuccess,msg = self.fs.go_forward()
+        return base(isSuccess,msg)
        
 
     def go_root(self):
-        self.fs.go_to_root()
+        isSuccess,msg = self.fs.go_to_root()
+        return base(isSuccess,msg)
        
 
     def go_to_address(self,path:str)->Dict[str,Any]:
-        isDone,msg = self.fs.go_to_address(path)
-        return {
-            "isdone":isDone,
-            "msg":msg
-        }
+        isSuccess,msg = self.fs.go_to_address(path)
+        return base(isSuccess,msg)
     
     def go_to_id(self,id:int):
-        self.fs.open_id(id)
+        isSuccess,msg = self.fs.open_id(id)
+        return base(isSuccess,msg)
 
     def go_to_parent(self,id:int):
-        return self.fs.go_to_parent(id)
+        isSuccess,msg = self.fs.go_to_parent(id)
+        if isSuccess:
+            return success({'p_id':int(msg)})
+        else:
+            return fail(msg)
       
        
 
-    def rename(self,old:str,new:str):
-        
-        result = self.fs.rename(old,new)
-       
-        return result
+    def rename(self,old:str,new:str): 
+        isSuccess,msg = self.fs.rename(old,new)
+        return base(isSuccess,msg)
+
         
 
     def cut(self,ids:List[int]): 
         self.fs.unselect_all()
         self.fs.select(*ids)
-        self.fs.cut()
+        isSuccess,msg = self.fs.cut()
+        return base(isSuccess,msg)
        
 
     def copy(self,ids:List[int]):
         self.fs.unselect_all()
         self.fs.select(*ids)
-        self.fs.copy()
+        isSuccess,msg = self.fs.copy()
+        return base(isSuccess,msg)
        
         
     def paste(self):
-        result = self.fs.paste()  
-        return result
+        result = self.fs.paste()
+        if result:
+            return success({'data':result})  
+        return fail('result is not found')
 
     def delete(self,ids:List[int]):
         self.fs.unselect_all()
         self.fs.select(*ids)
-        self.fs.delete()
+        result = self.fs.delete()
+        if result:
+            return success({'data':result})  
+        return fail('result is not found')
        
-
     def create_folder(self,name:str):
-        
         name = self.fs.create_dir(name)
-       
-        return name
+        return success({'name':name})
 
     def create_file(self,filename:str,content:str=""):
-        
         name = self.fs.create_file(filename,content)
-       
-        return name
+        return success({'name':name})
 
     def path_breaker(self):
-        
         result = self.fs.path_break_cwd()
-        return result
+        if result:
+            return success({'data':result})  
+        return fail('path is not correct')
     
     def get_cwd(self):
         path = self.fs.get_cwd()
-        return path
+        return success({'path':path})
 
     def get_quick(self):
         results:List[Tuple[str,int|None]] =[]
@@ -106,60 +127,60 @@ class TaskPerformer:
             if node:
                 results.append((node.name,node.id))
 
-        return results
+        return success({'data':results})
                 
 
     def pin_to_quick(self,id:int):
         self.fs.quick_access.add(id)
+        return success()
        
     def unpin_to_quick(self,id:int):
         self.fs.quick_access.remove(id)
+        return success()
        
-
-    def ultra_search(self,search_for:str,search_where:str,prifix:str,extension:str,substring:str):
-        
-        result = self.fs.ultra_search(search_for,search_where,prifix,extension[1:] if extension.startswith('.') else extension ,substring)
-       
-        return result
-
-    # hash
-    def get_duplicates(self):
-        
-        data = self.fs.search_duplicate_files()
-    
-        return data
-    
-    def find_dup(self,id:int):
-        
-        hash_= self.fs.search_hash_by_path(id)
-        ids= self.fs.search_paths_by_hash(hash_)
-        paths = [self.fs.get_path(id) for id in ids]
-       
-        return {
-            "paths":list(paths)
-        }
-
-       
-
-    def tag_search(self,tags:str):
-        data = self.fs.context_search(tags)
-        return data
-    
-
-    def copy_text(self,text:str):
-        pyperclip.copy(text)
-
     def lock_files(self,ids:List[int]):
+        result = {}
         for id in ids:
             node = self.fs.tree.get(id)
             if node:
-                self.fs.lock_file(node)               
+                result[node.name] = self.fs.lock_file(node)   
+        return success({'data':result})         
 
     def unlock_files(self,ids:List[int]):
         for id in ids:
             node = self.fs.tree.get(id)
             if node:
                 self.fs.unlock_file(node)
+        return success()
+
+    def find_dup(self,id:int):
+        hash_= self.fs.search_hash_by_path(id)
+        ids= self.fs.search_paths_by_hash(hash_)
+        paths = [self.fs.get_path(id) for id in ids]
+        return success({'paths':list(paths)})
+    '''
+    SEARCH.HTML
+    '''
+    def ultra_search(self,search_for:str,search_where:str,prifix:str,extension:str,substring:str):  
+        result = self.fs.ultra_search(search_for,search_where,prifix,extension[1:] if extension.startswith('.') else extension ,substring)
+        return success({'data':result})
+
+    # hash
+    def get_duplicates(self): 
+        result = self.fs.search_duplicate_files()
+        return success({'data':result})
+    
+
+    def tag_search(self,tags:str):
+        result = self.fs.context_search(tags)
+        if result:
+            return success({'data':result})
+        return fail('result not found')
+    
+    @staticmethod
+    def copy_text(text:str):
+        pyperclip.copy(text)
+
        
 
      

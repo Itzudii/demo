@@ -34,12 +34,13 @@ async function openFileQuick() {
 
 async function refresh() {
     setTimeout(() => {
-        
+
     }, 1);
     console.log('call')
-    files = await window.pywebview.api.show_list();
-    quickAccess = await window.pywebview.api.get_quick();
-    
+    let response2 = await window.pywebview.api.get_quick();
+    quickAccess = response2.data;
+    let response1 = await window.pywebview.api.show_list();
+    files = response1.data;
     await updateBreadcrumbButtons();
     console.log('files');
     console.log(files);
@@ -82,8 +83,8 @@ async function showBreadcrumbInput() {
     const buttons = document.getElementById('breadcrumbButtons');
 
     // Set input value to current path
-    const cwd = await window.pywebview.api.get_cwd();
-    input.value = cwd;
+    let response = await window.pywebview.api.get_cwd();
+    input.value = response.path;
 
     // Toggle visibility
     buttons.style.display = 'none';
@@ -98,14 +99,11 @@ async function hideBreadcrumbInput() {
     const buttons = document.getElementById('breadcrumbButtons');
 
     // Parse the input value and update path
-    const data = await window.pywebview.api.go_to_address(input.value);
-    if (!data.isdone) {
-        alert(data.msg);
-    } else {
-
-        await refresh();
+    let response = await window.pywebview.api.go_to_address(input.value);
+    if (!response.success) {
+        alert(response.msg);
     }
-
+    await refresh();
     // Toggle visibility
     setTimeout(() => {
         input.style.display = 'none';
@@ -126,28 +124,34 @@ function handleBreadcrumbKeydown(event) {
 
 // Update breadcrumb buttons from currentPath array
 async function updateBreadcrumbButtons() {
-    const data = await window.pywebview.api.path_breaker();
-    const cwd = await window.pywebview.api.get_cwd();
-    const keys = Object.keys(data);
-    const buttonsContainer = document.getElementById('breadcrumbButtons');
-    buttonsContainer.innerHTML = '';
+    let response = await window.pywebview.api.path_breaker();
+    if (!response.success){
+        alert(response.msg)
+    }else{
 
-    keys.forEach((filename, index) => {
-        // Create breadcrumb item
-        const item = document.createElement('span');
-        item.className = 'breadcrumb-item';
-        item.textContent = filename === "HOME" ? `🏠 ${filename}` : filename;
-        item.onclick = (e) => navigateToBreadcrumbId(e, data[filename]);
-        buttonsContainer.appendChild(item);
-
-        // Add separator if not last item
-        if (index < keys.length - 1) {
-            const separator = document.createElement('span');
-            separator.className = 'breadcrumb-separator';
-            separator.textContent = '›';
-            buttonsContainer.appendChild(separator);
-        }
-    });
+        const data = response.data;
+        // const cwd = await window.pywebview.api.get_cwd();
+        const keys = Object.keys(data);
+        const buttonsContainer = document.getElementById('breadcrumbButtons');
+        buttonsContainer.innerHTML = '';
+        
+        keys.forEach((filename, index) => {
+            // Create breadcrumb item
+            const item = document.createElement('span');
+            item.className = 'breadcrumb-item';
+            item.textContent = filename === "HOME" ? `🏠 ${filename}` : filename;
+            item.onclick = (e) => navigateToBreadcrumbId(e, data[filename]);
+            buttonsContainer.appendChild(item);
+            
+            // Add separator if not last item
+            if (index < keys.length - 1) {
+                const separator = document.createElement('span');
+                separator.className = 'breadcrumb-separator';
+                separator.textContent = '›';
+                buttonsContainer.appendChild(separator);
+            }
+        });
+    }
 }
 
 
@@ -177,19 +181,28 @@ async function navigateToBreadcrumbId(event, id) {
 
         event.stopPropagation();
     }
-    await window.pywebview.api.go_to_id(id);
-    quickActive = id;
+    let response = await window.pywebview.api.go_to_id(id);
+    if (!response.success) {
+        alert(response.msg);
+    } else {
+        quickActive = id;
+    }
     await refresh();
-    
+
 }
 async function navigateToBreadcrumbParent(event, id) {
     if (event) {
         event.stopPropagation();
     }
-    const p_id = await window.pywebview.api.go_to_parent(id);
-    quickActive = p_id;
+    const response = await window.pywebview.api.go_to_parent(id);
+    if (response.success) {
+
+        quickActive = response.p_id;
+    } else {
+        alert(response.msg)
+    }
     await refresh();
-    
+
 }
 
 // Updated file rendering with separate click handlers for icon and name
@@ -257,7 +270,7 @@ function renderFiles() {
             </div>
         `).join('');
     }
-   
+
     updateDetailsPanel()
 }
 
@@ -332,17 +345,12 @@ async function closeRename(index, save = true) {
     if (nameElement && inputElement) {
         const newName = inputElement.value.trim();
 
-        let isdone = await window.pywebview.api.rename(files[index].name, newName);
-        console.log(isdone);
-        let status_ = isdone.status;
-        let msg = isdone.msg;
-        if (!status_) {
+        let response = await window.pywebview.api.rename(files[index].name, newName);
+        if (!response.success) {
             alert(msg);
         } else {
-
             nameElement.innerText = newName;
         }
-
         // Switch back to display mode
         inputElement.style.display = 'none';
         nameElement.style.display = 'block';
@@ -575,24 +583,36 @@ function selectAll() {
 async function openFileHandler(fileName) {
     console.log('Opening:', fileName);
     // alert(`Opening: ${fileName}`);
-    await window.pywebview.api.open(fileName);
+    let response = await window.pywebview.api.open(fileName);
+    if (!response.success) {
+        alert(response.msg);
+    }
     refresh();
 }
 async function goBack() {
     console.log('Going back');
-    await window.pywebview.api.backward();
+    let response = await window.pywebview.api.backward();
+    if (!response.success) {
+        alert(response.msg);
+    }
     refresh();
 }
 
 async function goForward() {
     console.log('Going forward');
-    await window.pywebview.api.forward();
+    let response = await window.pywebview.api.forward();
+    if (!response.success) {
+        alert(response.msg);
+    }
     refresh();
 }
 
 async function goUp() {
     console.log('Going up');
-    await window.pywebview.api.go_root()
+    let response = await window.pywebview.api.go_root();
+    if (!response.success) {
+        alert(response.msg);
+    }
     refresh();
 }
 
@@ -630,8 +650,13 @@ async function copyFile() {
         result.push(f.id);
         cutcopy.add(index)
     });
-    await window.pywebview.api.copy(result);
-    fs_state = 'copy';
+    let response = await window.pywebview.api.copy(result);
+    if (!response.success) {
+        alert(response.msg);
+    } else {
+
+        fs_state = 'copy';
+    }
     await renderFiles();
 
 
@@ -648,13 +673,25 @@ async function cutFile() {
         result.push(f.id);
         cutcopy.add(index)
     });
-    await window.pywebview.api.cut(result);
-    fs_state = 'cut';
+    let response = await window.pywebview.api.cut(result);
+    if (!response.success) {
+        alert(response.msg);
+    } else {
+        fs_state = 'cut';
+    }
+
     await renderFiles();
 
 }
 async function pasteFile() {
-    await window.pywebview.api.paste();
+    let response = await window.pywebview.api.paste();
+    if (!response.success) {
+        alert(response.msg);
+    } else {
+        let result = response.data;
+        console.log(["COPY CUT RESULT >>", result]);
+
+    }
     cutcopy.clear();
     fs_state = "ideal"
     refresh();
@@ -674,7 +711,13 @@ async function deleteFile() {
             result.push(f.id);
 
         });
-        await window.pywebview.api.delete(result);
+        let response = await window.pywebview.api.delete(result);
+        if (!response.success) {
+            alert(response.msg);
+        } else {
+            let result = response.data;
+            console.log(["DELETE RESULT >>", result]);
+        }
         await refresh();
     }
 }
@@ -696,9 +739,9 @@ function _get_index(filename) {
 
 
 async function createFolder() {
-    let name = await window.pywebview.api.create_folder('New_Folder');
+    let response = await window.pywebview.api.create_folder('New_Folder');
     await refresh();
-    const index = _get_index(name);
+    const index = _get_index(response.name);
     if (index !== -1) {
         console.log("Found at", index);
         selectedFiles.clear();
@@ -709,9 +752,9 @@ async function createFolder() {
 
 }
 async function createTxt() {
-    let name = await window.pywebview.api.create_file('New_File.txt');
+    let response = await window.pywebview.api.create_file('New_File.txt');
     await refresh();
-    const index = _get_index(name);
+    const index = _get_index(response.name);
     if (index !== -1) {
         console.log("Found at", index);
         selectedFiles.clear();
@@ -746,8 +789,9 @@ async function lockItem() {
         let f = files[index];
         ids.push(f.id);
     });
-    await window.pywebview.api.lock_files(ids);
-    console.log("lock");
+    let response = await window.pywebview.api.lock_files(ids);
+
+    console.log(['LOCK RESULT',response.data]);
     await refresh();
 }
 async function unLockItem() {
@@ -760,7 +804,7 @@ async function unLockItem() {
         let f = files[index];
         ids.push(f.id);
     });
-    await window.pywebview.api.unlock_files(ids);
+    let response = await window.pywebview.api.unlock_files(ids);
     console.log("unlock");
     await refresh();
 }
@@ -963,8 +1007,8 @@ function closeDupWindow() {
 
 async function similarFiles() {
     const index = Array.from(selectedFiles)[0];
-    const paths = await window.pywebview.api.find_dup(files[index].path);
-    console.log(paths);
+    const response = await window.pywebview.api.find_dup(files[index].path);
+    console.log(response);
 
     const dupWindow = document.getElementById("contextMenuDup");
     const dupResultContainer = document.getElementById("menu-resultdup");
@@ -978,7 +1022,7 @@ async function similarFiles() {
     //     `).join("");
 
     dupWindow.style.display = "block";
-    paths.paths.forEach(path => {
+    response.paths.forEach(path => {
 
         const d = document.createElement('div');
         d.className = "context-item"

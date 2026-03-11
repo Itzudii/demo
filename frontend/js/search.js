@@ -34,7 +34,11 @@ function render_list(response) {
         console.log(file)
         const fileName = file.name;
         const fileID = file.id;
-        const icon = get_icon(fileName);
+        let icon = get_icon(fileName);
+        if(file.isdir){
+            icon = '📁';
+        }
+        
         
 
         // Determine icon based on file extension
@@ -42,7 +46,7 @@ function render_list(response) {
 
         const d = document.createElement('div');
         d.className = "result-item";
-        d.onclick = () => navigateToID(fileID, this);
+        d.onclick = () => navigateToParent(fileID, this);
         d.innerHTML = ` <div class="result-icon">${icon}</div>
                             <div class="result-content">
                                 <div class="result-filename">${fileName}</div>
@@ -63,7 +67,7 @@ async function performSearch() {
     // const pythonOutput = document.getElementById('pythonOutput').checked;
     const response = await window.pywebview.api.ultra_search(searchFor, searchWhere, searchText, fileExtension, substringSearch);
     console.log(response);
-    render_list(response);
+    render_list(response.data);
     // const resultsList = document.getElementById('resultsList');
     // resultsList.innerHTML = '';
 
@@ -145,7 +149,12 @@ async function tagsSearch() {
     resultsList.innerHTML = '';
 
     const response = await window.pywebview.api.tag_search(tagsentry.value);
-    render_list(response)
+    if(!response.success){
+        alert(response.msg);
+    }else{
+
+        render_list(response);
+    }
     // console.log(data);
     // data.forEach(file => {
 

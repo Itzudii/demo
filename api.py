@@ -84,8 +84,8 @@ class API:
         node = self._ctrl.fs.tree.get(id)
         if node:
             p_node = node.parent
-            p_id = p_node.id if p_node else id
-            self._window.evaluate_js(f'navigateToBreadcrumbParent(null,{(p_id)})')   
+            self._ctrl.fs._set_cwd(p_node)
+            self._window.evaluate_js(f'refresh()')   
        
 
     def rename(self,*args:Any):

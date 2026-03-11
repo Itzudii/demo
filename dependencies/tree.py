@@ -68,7 +68,7 @@ class Tree:
         for row in rows:
             # row: (id, name, parent_id, type)
             node_id = row[0]
-            name = row[1]
+            name:str = row[1]
             parent_id = row[2]
             type_ = row[3]
             m_time = row[4]
@@ -87,7 +87,7 @@ class Tree:
             node.is_locked = is_locked
             node.indicator = indicator
             node.is_hashed = is_hashed
-            node.is_hidden
+            node.is_hidden = True if name.startswith('.') else False
             node.ext = ext
             id_to_node[node_id] = node
             ext_to_node[node.ext].append(node)
@@ -115,5 +115,6 @@ class Tree:
             self.id_to_node = id_to_node
         if ext_to_node:
             self.ext_to_node = ext_to_node
+        print(id_to_node)
         
 

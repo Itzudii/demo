@@ -341,15 +341,10 @@ class FSManager:
             nodes=[]
             if root_path:
 
-
                 stack:list[TreeNode] = [root_node]
-
-
                 paths:list[str] = [root_path]
-
                 normalize = FSManager.normalize_path
 
-                
                 # last_id = self.db.get_next_id()
 
                 while stack:
@@ -515,9 +510,9 @@ class FSManager:
             node= self.tree.get(id)
             if node:
                 self.open(node)
-            if self.root:
-                self.open(self.root)
-                logger.warning("node not found:open_id")
+                return (True,f'goto {node.name}')
+            return (False,'not found')
+        return (False,'internal tree not found')
 
 
     """
@@ -576,26 +571,39 @@ class FSManager:
         p_node = del_node.parent
         p_node.childs.pop(del_node.name) # pop in parents
            
-    def _delete_memory(self,node): # verified 
+    def _delete_memory(self,node:TreeNode): # verified 
         ''' delete file/folder from memeory only '''
         path = self.get_path(node.id)
-        if node.is_dir:
-            shutil.rmtree(path)
-        else:
-            os.remove(path)
+        try:
+            if node.is_dir:
+                shutil.rmtree(path)
+            else:
+                os.remove(path)
+            return (True,'done successfully')
+        except Exception as e:
+            return (False,f'{e}')
     
     def delete_node(self,node): # verified 
         ''' delete file/folder from disk and tree structure '''
-        self._delete_memory(node)
-        self._delete_internal(node)
+        isSuccess,msg =self._delete_memory(node)
+        if isSuccess:
+            self._delete_internal(node)
+        return(isSuccess,msg)
 
     def delete(self): # verified
         # childs_metadata = self.collect_metadata_parent_id(self.cwd.id)
+        results = {}
         for id in self.selected_nodes:
             node = self.tree.get(id)
             # meta = childs_metadata.get(id)
             if node:
-                self.delete_node(node)
+                isSuccess,msg = self.delete_node(node)
+                results[node.name] = {
+                    'success':isSuccess,
+                    'msg':msg
+                }
+        return results
+
 
     """
     > CUT > COPY > PASTE
@@ -607,6 +615,9 @@ class FSManager:
                 self.state = 'move'
                 # self._set_pointer(self.cwd)
                 logger.info("move mode activated")
+                return (True,'change mode to move')
+            return (False,'no item selected')
+        return (False,'no avaliable')
 
     def copy(self): # verified
         if self.state == 'ideal':
@@ -614,6 +625,9 @@ class FSManager:
                 self.state = 'copy'
                 # self._set_pointer(self.cwd)
                 logger.info("copy mode activated")
+                return (True,'change mode to copy')
+            return (False,'no item selected')
+        return (False,'no avaliable')
    
     def _paste_for_move(self): # verified
         def _paste_for_move_helper(node:TreeNode)->bool:
@@ -627,39 +641,48 @@ class FSManager:
                 self.urgent_request({"name":'set_parent',
                                      "para":(node.id,self.cwd.id)})
 
-                return True
+                return (True,'successfully move')
             except Exception as e:
                 logger.error(f'{e}')
-                return False
-        results:List[Tuple[str,bool]] = []
+                return (False,f'{e}')
+        
+        results={}
         for id in self.selected_nodes:
             node = self.tree.get(id)
             if node:
-                result = (node.name,_paste_for_move_helper(node))
-                results.append(result)
+                isSuccess,msg = _paste_for_move_helper(node)
+                results[node.name] = {
+                    "success":isSuccess,
+                    'msg':msg
+                }
         return results
 
-    def _paste_for_copy_helper(self,node:TreeNode)->bool: # verified
-        try:
-            cwd_path = self.get_path(self.cwd.id)
-            node_path = self.get_path(node.id)
-            if not node.is_dir:
-                shutil.copy2(node_path,cwd_path)
-            elif node.is_dir:
-                dest_path = os.path.join(cwd_path,node.name)
-                shutil.copytree(node_path,dest_path)
-            
-            return True
-        except Exception:
-            return False
 
     def _paste_for_copy(self): # verified
-        results:List[Tuple[str,bool]] = []
+        def _paste_for_copy_helper(node:TreeNode)->bool: # verified
+            try:
+                cwd_path = self.get_path(self.cwd.id)
+                node_path = self.get_path(node.id)
+                if not node.is_dir:
+                    shutil.copy2(node_path,cwd_path)
+                elif node.is_dir:
+                    dest_path = os.path.join(cwd_path,node.name)
+                    shutil.copytree(node_path,dest_path)
+
+                return (True,'successfully copy')
+            except Exception as e:
+                logger.error(f'{e}')
+                return (False,f'{e}')
+        
+        results:List[Tuple[str,bool]] = {}
         for id in self.selected_nodes:
             node = self.tree.get(id)
             if node:
-                result = (node.name,self._paste_for_copy_helper(node))
-                results.append(result)
+                isSuccess,msg = _paste_for_copy_helper(node)
+                results[node.name] = {
+                    "success":isSuccess,
+                    'msg':msg
+                }
         return results
 
     def paste(self)->List[Tuple[str, bool]|None]: # verified
@@ -676,7 +699,7 @@ class FSManager:
             self.state = 'ideal'
             return result
         self.unselect_all()
-        return []
+        return {}
     
     """
     > CREATE
@@ -857,27 +880,28 @@ class FSManager:
 
     def go_to_root(self): # verified
         self._set_cwd(self.root)   
+        return (True,f"goto {self.cwd.name}")
     
     def go_to(self,name:str): # verified
         node = self.get_node(name)
         if node:
             self.open(node)
-            return True
+            return (True,'open successfully')
         else:
             logger.warning(f"{name} not found in cwd")
-            return False
+            return (True,f"{name} not found in cwd")
     
     def go_back(self): # verified
         if self.state == 'ideal':
             self.unselect_all()
         if self.undoStack.empty():
             logger.warning("no undo -> Empty")
-            return False
+            return (False,"no Undo -> Stack is Empty!")
         # it not need history push
         self.redoStack.push(self.cwd)
         prev_node = self.undoStack.pop()
         self.cwd = prev_node
-        return True
+        return (True,f'go to ${self.cwd.name}')
 
     def go_forward(self): # verified
         if self.state == 'ideal':
@@ -885,10 +909,11 @@ class FSManager:
         if self.redoStack.empty():
             
             logger.warning("no redo->empty")
-            return
+            return (False,"no Redo -> Stack is Empty!")
         # it not need history push
         prev_node = self.redoStack.pop()
         self.open(prev_node)
+        return (True,f'go to ${self.cwd.name}')
 
     def go_to_address(self,path:str): # verified
         try:
@@ -905,12 +930,13 @@ class FSManager:
         return (False,m)
     
     def go_to_parent(self,id:int):
-        p_id = self.db.get_parent_id(id)
-        node = self.tree.get(p_id)
+        # p_id = self.db.get_parent_id(id)
+        node_ = self.tree.get(id)
+        node = node_.parent if node_ else None
         if node:
             self.open(node)
-            return node.id
-        return None
+            return (True,node.id)
+        return (False,'not found')
 
     """
    > RENAME
@@ -948,30 +974,19 @@ class FSManager:
         if isDone:
             self._rename_internal(name,node,p_node)
             logger.info(f"rename > '{node.name}' to '{name}'")
-            return {
-            "status":True,
-            "msg": "name rename done"
-            }
-        return {
-            "status":False,
-            "msg": "invalid charcters used"
-        }
+            return (True,"name rename done")
+        return (False,"invalid charcters used")
         
     def rename(self,old:str,new:str)->Dict[str,Any]: # verified
         if any([new.__contains__(char)for char in '/*?"<>:|']):
-            return {
-            "status":False,
-            "msg": 'not use this any this character / * ? " < > : |'
-        }
+            return (False,'not use this any this character / * ? " < > : |')
         if new not in self.cwd.childs:
             node = self.get_node(old)
             if node:
                 return self.rename_node(new,node)
+            return (False,f"{old} not found")
 
-        return {
-            "status":False,
-            "msg": "name alredy exist"
-        }
+        return (False,"name alredy exist")
         
     """
         EXTRA HELPING FEATURES 
@@ -994,11 +1009,11 @@ class FSManager:
     
     def _path_break_to_dict(self,path:str)->Dict[Any,Any]: # verified
         if FSManager.path_verifier(path):
-            root_path = self.get_path(self.root.id)
+            root_path = DEFAULT_PATH
             rootv=root_path.split('/')
             pathv=path.split('/')
+            data:Dict[str,str] = {"HOME":self.root.id}
             length = len(rootv)
-            data:Dict[str,str] = {"HOME":root_path}
             names:List[str] = pathv[length:]
             node = self.root
             for name in names:
@@ -1128,6 +1143,7 @@ class FSManager:
                     final_result.append({
                        'name':node.name,
                        'id':node.id,
+                       'isdir':node.is_dir
                     })
             return final_result
         
@@ -1155,6 +1171,7 @@ class FSManager:
             final_result.append({
                 'name':node.name,
                 'id':node.id,
+                'isdir':node.is_dir
             })
         return final_result
 
@@ -1191,11 +1208,12 @@ class FSManager:
         return False
 
     def unlock_file(self,node:TreeNode):
-        node.is_locked = False
-        self.urgent_request({
-                'name':'set_locked',
-                "para":(node.id,False)
-            })
+        if node.is_locked:
+            node.is_locked = False
+            self.urgent_request({
+                    'name':'set_locked',
+                    "para":(node.id,False)
+                })
     
 
     """
@@ -1229,12 +1247,10 @@ class FSManager:
                 final_result.append({
                     'name':node.name,
                     'id':node.id,
+                    'isdir':node.is_dir
                 })
             return final_result
-        return [{
-                    'name':"no value found",
-                    'id':self.root.id,
-                }]
+        return []
 
     
     """
