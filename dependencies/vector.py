@@ -58,8 +58,8 @@ class MrVectorExpert:
 
             return mean_vector
         return None
-
-    def calculate_cosine_similarity(self, vector1:np.ndarray, vector2:np.ndarray)->float:
+    @staticmethod
+    def calculate_cosine_similarity( vector1:np.ndarray, vector2:np.ndarray)->float:
         """
         Calculate cosine similarity between two vectors.
         Args:
@@ -90,7 +90,7 @@ class MrVectorExpert:
         if vector1 is None or vector2 is None:
             return 0.0
 
-        similarity = self.calculate_cosine_similarity(vector1, vector2)
+        similarity = MrVectorExpert.calculate_cosine_similarity(vector1, vector2)
         return similarity
 
         
@@ -101,7 +101,7 @@ class MrVectorExpert:
         ns1 = time.perf_counter_ns()
 
         for id,vector2 in zip(ids,vectors):
-            score = self.calculate_cosine_similarity(vector1,vector2)
+            score = MrVectorExpert.calculate_cosine_similarity(vector1,vector2)
             print(score,"<<<<<<<<<<<<<")
             if score >= COSINE_SIMILARITY_MINVALUE:
                 result.append(id)

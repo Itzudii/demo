@@ -3,7 +3,7 @@ File Management System
 Copyright (c) 2026 Uditya Patel
 Licensed under the MIT License.
 """
-from dependencies.log_config import setup_logger
+import dependencies.log_config
 from controller import Controller
 
 import webview
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     os.makedirs("logs", exist_ok=True)
     os.makedirs("model", exist_ok=True)
 
-    logger = setup_logger()
+    logger = dependencies.log_config.setup_logger()
     logger.info('FS starts=====>')
     api = API(Controller())
     webview.start(debug=True)

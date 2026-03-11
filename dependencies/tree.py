@@ -3,7 +3,7 @@ File Management System
 Copyright (c) 2026 Uditya Patel
 Licensed under the MIT License.
 """
-from dependencies.useful import name_ext
+import dependencies.helperfuncUtils 
 from dependencies.storage import Storage
 
 
@@ -17,7 +17,7 @@ class TreeNode:
     def __init__(self,name:str,is_dir:bool):
         self.id:Optional[int] = None
         self.name:str = name
-        data = name_ext(name)
+        data = dependencies.helperfuncUtils.name_ext(name)
         self.ext:str = data.get('ext','')
 
         self.childs:Optional[Dict[str,TreeNode]] = {} if is_dir else None

@@ -6,8 +6,7 @@ Licensed under the MIT License.
 from dependencies.tree import Tree,TreeNode
 from dependencies.stack import Stack
 from dependencies.dict import pickle_dict
-from dependencies.useful import get_indicator,formate_sttime
-from dependencies.useful import file_hash,name_ext,filename_dup_normalizer
+import dependencies.helperfuncUtils
 from dependencies.storage import Storage
 from dependencies.logmanger import LogManager
 from dependencies.vector import MrVectorExpert
@@ -204,7 +203,7 @@ class FSManager:
                             if node_ is None:
                                 print("create node",name)
                                 is_dir = item.is_dir(follow_symlinks=False)
-                                data = name_ext(name)
+                                data = dependencies.helperfuncUtils.name_ext(name)
                                 path_ = FSManager.normalize_path(item.path)
 
                             #    enqueue db
@@ -307,7 +306,7 @@ class FSManager:
                         name = item.name
                         is_dir = item.is_dir(follow_symlinks=False)
                         st = item.stat(follow_symlinks=False)
-                        data = name_ext(name)
+                        data = dependencies.helperfuncUtils.name_ext(name)
                         path_ = normalize(item.path)
                         
                         self.last_id+=1
@@ -373,7 +372,7 @@ class FSManager:
                             # CREATE
                             if node_ is None:
                                 is_dir = item.is_dir(follow_symlinks=False)
-                                data = name_ext(name)
+                                data = dependencies.helperfuncUtils.name_ext(name)
 
                             #    enqueue db
                                 
@@ -761,7 +760,7 @@ class FSManager:
         p_path = self.get_path(p_node.id)
         new_file_path = '/'.join([p_path,file_name])
         st = os.stat(new_file_path)
-        data = name_ext(file_name)
+        data = dependencies.helperfuncUtils.name_ext(file_name)
         # last_id+=1
         self.urgent_request({
             "name":"add_node",
@@ -799,7 +798,7 @@ class FSManager:
             logger.info(f"create in dir > {dir_name}")
             return dir_name
         else:
-            self.create_dir(filename_dup_normalizer(dir_name),p_node)
+            self.create_dir(dependencies.helperfuncUtils.filename_dup_normalizer(dir_name),p_node)
 
     def create_file(self,file_name:str,content:str="",p_node:Optional[TreeNode]= None): # verified
         isDone = self._create_file_memory(file_name,content,p_node)
@@ -810,7 +809,7 @@ class FSManager:
             return file_name
             
         else:
-            self.create_file(filename_dup_normalizer(file_name),content,p_node)
+            self.create_file(dependencies.helperfuncUtils.filename_dup_normalizer(file_name),content,p_node)
     
     def write_to_file(self,node:TreeNode,content:str): # verified
         if not node.is_dir:
@@ -839,11 +838,11 @@ class FSManager:
                 "path":self.get_path(node.id),
                 "type":'folder' if node.is_dir else 'file',
                 "state":node.is_hashed,
-                "indicator":get_indicator(node.indicator),
+                "indicator":dependencies.helperfuncUtils.get_indicator(node.indicator),
                 "islock":node.is_locked,
                 "ext":node.ext,
                 "size":node.size,
-                "modified_time":formate_sttime(node.m_time),
+                "modified_time":dependencies.helperfuncUtils.formate_sttime(node.m_time),
                 "icon":'<svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#fff"><path d="m484-288 89-68 89 68-34-109.15L717-468H607.56L573-576l-34 108H429l89 70.85L484-288Zm-316 96q-29 0-50.5-21.5T96-264v-432q0-29.7 21.5-50.85Q139-768 168-768h216l96 96h312q29.7 0 50.85 21.15Q864-629.7 864-600v336q0 29-21.15 50.5T792-192H168Zm0-72h624v-336H450l-96-96H168v432Zm0 0v-432 432Z"/></svg>' if node.is_dir else '<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3"><path d="M263.72-96Q234-96 213-117.15T192-168v-624q0-29.7 21.15-50.85Q234.3-864 264-864h312l192 192v504q0 29.7-21.16 50.85Q725.68-96 695.96-96H263.72Zm.28-72h432v-456H528v-168H264v624Zm203.54-24q65.52 0 110.99-45.5T624-348v-132h-72v132q0 34.65-24.5 59.33Q503-264 467.51-264q-34.45 0-58.98-24.67Q384-313.35 384-348v-180q0-10 7.2-17t16.8-7q10 0 17 7t7 17v192h72v-192q0-40.32-27.77-68.16-27.78-27.84-68-27.84Q368-624 340-596.16q-28 27.84-28 68.16v180q0 65 45.5 110.5T467.54-192ZM264-792v189-189 624-624Z"/></svg>'
             }
 
@@ -1268,7 +1267,7 @@ class FSManager:
         path = self.get_path(id)
 
         old_hash = meta.get('hash')
-        new_hash = file_hash(path)
+        new_hash = dependencies.helperfuncUtils.file_hash(path)
 
         if old_hash != new_hash:
             self.normal_request({"name":'set_indicator',

@@ -74,7 +74,8 @@ class LogManager:
         return events
 
     # INTERNAL HELPER
-    def _read_all(self, path:Path):
+    @staticmethod
+    def _read_all(path:Path):
         data:List[Dict[Any,Any]]= []
 
         with open(path, "r", encoding="utf-8") as f:

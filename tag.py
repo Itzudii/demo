@@ -3,7 +3,7 @@ File Management System
 Copyright (c) 2026 Uditya Patel
 Licensed under the MIT License.
 """
-from dependencies.fileReader import universal_reader  # uncomment when you need it
+import dependencies.fileReader # uncomment when you need it
 
 import logging
 from llama_cpp import Llama
@@ -115,7 +115,7 @@ class TagGenerator:
             return ["unknown", "unknown", "unknown", "unknown"]
 
     def generate_tags_path(self, path:str)->List[Any]:
-        txt = universal_reader(path)
+        txt = dependencies.fileReader.universal_reader(path)
         if txt.strip() == '':
             pass
         else:

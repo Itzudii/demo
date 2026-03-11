@@ -3,8 +3,8 @@ File Management System
 Copyright (c) 2026 Uditya Patel
 Licensed under the MIT License.
 """
-from dependencies.useful import filemode_readable,formate_sttime,bytes_to_mb,get_filemode
 from fsmanager import FSManager
+import dependencies.helperfuncUtils
 
 import os
 import logging
@@ -176,10 +176,10 @@ class CliPerformer:
                     f'hash: {meta.get('hash')}',
                     f'vector: {meta.get('vector')}',
                     f'tags: {meta.get('tags')}',
-                    f'size: {bytes_to_mb(meta.get('size'))} MB',
-                    f'modified_time: {formate_sttime(meta.get('modified_time'))}',
-                    f'created_time: {formate_sttime(meta.get('created_time'))}',
-                    f'mode: {filemode_readable(get_filemode(int(meta.get('mode'))))}',
+                    f'size: {dependencies.helperfuncUtils.bytes_to_mb(meta.get('size'))} MB',
+                    f'modified_time: {dependencies.helperfuncUtils.formate_sttime(meta.get('modified_time'))}',
+                    f'created_time: {dependencies.helperfuncUtils.formate_sttime(meta.get('created_time'))}',
+                    f'mode: {dependencies.helperfuncUtils.filemode_readable(dependencies.helperfuncUtils.get_filemode(int(meta.get('mode'))))}',
                     f'parent_id: {meta.get('parent_id')}',
                 )
                 return self.ok(result,True)
