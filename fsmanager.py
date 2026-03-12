@@ -85,7 +85,7 @@ class FSManager:
         self.log = LogManager(active,processing)
         self.last_id = self.db.get_next_id()
       
-    @staticmethod
+    @staticmethod 
     def needs_rehash(node:TreeNode, st:stat_result):
         """
         Decide whether file content hash must be recalculated
