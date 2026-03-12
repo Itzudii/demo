@@ -1,25 +1,3 @@
-# web project template
-
-html/
-    index.html:
-        <html>
-        <body>
-        <h1>Hello</h1>
-        </body>
-        </html>
-
-css/
-    index.css:
-        body {
-            background: black;
-        }
-
-js/
-    jss/
-        main.js:
-            console.log("Hello");
-
-    second.js
-
-app.py:
-    print("Hello World")
+Templete/
+	index.html:
+		HSJHDSDSJKHDHDJS

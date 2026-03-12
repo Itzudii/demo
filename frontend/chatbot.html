@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Terminal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/chatbot.css">
+</head>
+
+<body>
+    <div class="window-frame">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <span class="title-text">ai-terminal — chat session</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+                <div class="status-dot"></div>
+                <span class="title-meta">connected</span>
+            </div>
+        </div>
+
+        <div class="cli-board">
+            <div class="content" id="output">
+                <div class="banner">
+                    <div class="banner-title">// AI TERMINAL v1.0.0</div>
+                    <div class="banner-sub" style="margin-top:6px;">
+                        <span class="tag ver">v1.0.0</span>
+                        <span class="tag os">linux/x86_64</span>
+                        <span class="tag ai">claude-sonnet</span>
+                    </div>
+                    <div class="banner-sub" style="margin-top:8px;">
+                        Chat session initialized. Type your message and press <span
+                            style="color:var(--accent)">Enter</span> to send.
+                    </div>
+                </div>
+
+                <div class="output-line system"
+                    style="animation-delay:0.2s;opacity:0;animation:fadeInLine 0.25s ease 0.2s forwards;">
+                    <span class="line-prefix">›</span>
+                    <span>AI model loaded. Ready to receive input.</span>
+                </div>
+                <hr class="divider" style="opacity:0;animation:fadeInLine 0.25s ease 0.4s forwards;">
+            </div>
+
+            <div class="input-area">
+                <div class="input-row">
+                    <div class="prompt-badge">
+                        <span class="prompt-user">user</span>
+                        <span class="prompt-sep">@</span>
+                        <span class="prompt-path">~/chat</span>
+                        <span class="prompt-arrow">❯</span>
+                    </div>
+                    <input class="cmd-input" type="text" id="cmdInput" autocomplete="off" spellcheck="false"
+                        placeholder="enter message..." />
+                    <button class="send-btn" id="sendBtn">Send</button>
+                </div>
+                <div class="input-hint">
+                    <span class="hint-key"><kbd>↑↓</kbd> history</span>
+                    <span class="hint-key"><kbd>Enter</kbd> send</span>
+                    <span class="hint-key"><kbd>Ctrl+C</kbd> clear</span>
+                    <span class="token-counter" id="tokenCounter">0 chars</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ─── DOM refs ─────────────────────────────────────────── */
+        const inputEl = document.getElementById('cmdInput');
+        const outputEl = document.getElementById('output');
+        const sendBtn = document.getElementById('sendBtn');
+        const tokenCounter = document.getElementById('tokenCounter');
+
+        /* ─── State ─────────────────────────────────────────────── */
+        const cmdHistory = [];
+        let historyIdx = -1;
+        let isLoading = false;
+        const messages = [];          // full conversation for multi-turn context
+
+        /* ── CONFIG ─ swap API_URL to your own backend proxy if needed ── */
+        const API_URL = 'https://api.anthropic.com/v1/messages';
+        const MODEL = 'claude-sonnet-4-20250514';
+
+        /* ─────────────────────────────────────────────────────────────────
+           MD → HTML PARSER
+           Converts raw markdown text returned by the API into structured
+           HTML that fits the terminal visual theme.
+        ───────────────────────────────────────────────────────────────── */
+        function parseMarkdown(raw) {
+            console.log(raw);
+            const lines = raw.split('\n');
+            const output = [];
+            let i = 0;
+
+            /* helpers */
+            const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+            /* inline styles: bold, italic, inline-code, links */
+            function inlineFormat(text) {
+                // inline code  `code`
+                text = text.replace(/`([^`]+)`/g,
+                    (_, c) => `<code class="md-code">${esc(c)}</code>`);
+                // bold **text** or __text__
+                text = text.replace(/\*\*(.*?)\*\*|__(.*?)__/g,
+                    (_, a, b) => `<strong class="md-bold">${a || b}</strong>`);
+                // italic *text* or _text_
+                text = text.replace(/\*([^*]+)\*|_([^_]+)_/g,
+                    (_, a, b) => `<em class="md-italic">${a || b}</em>`);
+                // links [label](url)
+                text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+                    (_, label, url) => `<a class="md-link" href="${esc(url)}" target="_blank">${esc(label)}</a>`);
+                // ~~strikethrough~~
+                text = text.replace(/~~(.*?)~~/g,
+                    (_, t) => `<del class="md-del">${t}</del>`);
+                return text;
+            }
+
+            while (i < lines.length) {
+                const line = lines[i];
+
+                /* ── fenced code block  ```lang\n...\n``` ── */
+                if (/^```/.test(line)) {
+                    const lang = line.slice(3).trim() || 'code';
+                    const codeLines = [];
+                    i++;
+                    while (i < lines.length && !/^```/.test(lines[i])) {
+                        codeLines.push(lines[i]);
+                        i++;
+                    }
+                    const codeHtml = esc(codeLines.join('\n'));
+                    output.push(`
+                  <div class="md-codeblock">
+                    <div class="md-codeblock-header">
+                      <span class="md-lang">${esc(lang)}</span>
+                      <button class="md-copy-btn" onclick="copyCode(this)">copy</button>
+                    </div>
+                    <pre class="md-pre"><code>${codeHtml}</code></pre>
+                  </div>`);
+                    i++;
+                    continue;
+                }
+
+                /* ── headings  # ## ### ── */
+                const h = line.match(/^(#{1,6})\s+(.*)/);
+                if (h) {
+                    const level = h[1].length;
+                    const cls = `md-h${level}`;
+                    output.push(`<div class="${cls}">${inlineFormat(esc(h[2]))}</div>`);
+                    i++;
+                    continue;
+                }
+
+                /* ── horizontal rule  --- or *** ── */
+                if (/^(-{3,}|\*{3,}|_{3,})$/.test(line.trim())) {
+                    output.push(`<hr class="md-hr">`);
+                    i++;
+                    continue;
+                }
+
+                /* ── blockquote  > text ── */
+                if (/^>\s?/.test(line)) {
+                    const qLines = [];
+                    while (i < lines.length && /^>\s?/.test(lines[i])) {
+                        qLines.push(lines[i].replace(/^>\s?/, ''));
+                        i++;
+                    }
+                    output.push(`<blockquote class="md-blockquote">${inlineFormat(esc(qLines.join(' ')))}</blockquote>`);
+                    continue;
+                }
+
+                /* ── unordered list  - * + ── */
+                if (/^[\-\*\+]\s/.test(line)) {
+                    const items = [];
+                    while (i < lines.length && /^[\-\*\+]\s/.test(lines[i])) {
+                        items.push(`<li class="md-li">${inlineFormat(esc(lines[i].replace(/^[\-\*\+]\s/, '')))}</li>`);
+                        i++;
+                    }
+                    output.push(`<ul class="md-ul">${items.join('')}</ul>`);
+                    continue;
+                }
+
+                /* ── ordered list  1. 2. ── */
+                if (/^\d+\.\s/.test(line)) {
+                    const items = [];
+                    while (i < lines.length && /^\d+\.\s/.test(lines[i])) {
+                        items.push(`<li class="md-li">${inlineFormat(esc(lines[i].replace(/^\d+\.\s/, '')))}</li>`);
+                        i++;
+                    }
+                    output.push(`<ol class="md-ol">${items.join('')}</ol>`);
+                    continue;
+                }
+
+                /* ── table  | col | col | ── */
+                if (/^\|/.test(line) && i + 1 < lines.length && /^\|[-| :]+\|/.test(lines[i + 1])) {
+                    const headers = line.split('|').filter(c => c.trim()).map(c =>
+                        `<th class="md-th">${inlineFormat(esc(c.trim()))}</th>`).join('');
+                    i += 2; // skip header + separator
+                    const rows = [];
+                    while (i < lines.length && /^\|/.test(lines[i])) {
+                        const cells = lines[i].split('|').filter(c => c.trim()).map(c =>
+                            `<td class="md-td">${inlineFormat(esc(c.trim()))}</td>`).join('');
+                        rows.push(`<tr class="md-tr">${cells}</tr>`);
+                        i++;
+                    }
+                    output.push(`
+                  <div class="md-table-wrap">
+                    <table class="md-table">
+                      <thead><tr>${headers}</tr></thead>
+                      <tbody>${rows.join('')}</tbody>
+                    </table>
+                  </div>`);
+                    continue;
+                }
+
+                /* ── blank line → spacer ── */
+                if (line.trim() === '') {
+                    output.push(`<div class="md-spacer"></div>`);
+                    i++;
+                    continue;
+                }
+
+                /* ── default: paragraph line ── */
+                output.push(`<p class="md-p">${inlineFormat(esc(line))}</p>`);
+                i++;
+            }
+
+            return output.join('\n');
+        }
+
+        /* copy helper for code blocks */
+        window.copyCode = function (btn) {
+            const code = btn.closest('.md-codeblock').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'copied!';
+                setTimeout(() => btn.textContent = 'copy', 1500);
+            });
+        };
+
+        /* ─────────────────────────────────────────────────────────────────
+           UI HELPERS
+        ───────────────────────────────────────────────────────────────── */
+        function scrollBottom() { outputEl.scrollTop = outputEl.scrollHeight; }
+
+        function addUserMessage(text) {
+            const block = document.createElement('div');
+            block.className = 'msg-block msg-user';
+            block.innerHTML = `
+            <div class="msg-header">
+                <div class="prompt-badge">
+                    <span class="prompt-user">user</span>
+                    <span class="prompt-sep">@</span>
+                    <span class="prompt-path">~/chat</span>
+                    <span class="prompt-arrow">❯</span>
+                </div>
+            </div>
+            <div class="msg-body">
+                <span class="line-prefix">›</span>
+                <span>${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+            </div>`;
+            outputEl.appendChild(block);
+            scrollBottom();
+        }
+
+        function addTypingIndicator() {
+            const block = document.createElement('div');
+            block.className = 'msg-block msg-ai';
+            block.id = 'typing-block';
+            block.innerHTML = `
+            <div class="msg-header">
+                <div class="ai-badge">
+                    <div class="ai-sigil">AI</div>
+                    <span class="ai-name">ASSISTANT</span>
+                    <span class="ai-model">processing...</span>
+                </div>
+            </div>
+            <div class="msg-body">
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>`;
+            outputEl.appendChild(block);
+            scrollBottom();
+        }
+
+        function removeTypingIndicator() {
+            document.getElementById('typing-block')?.remove();
+        }
+
+        function addAiMessage(rawMarkdown) {
+            removeTypingIndicator();
+            const block = document.createElement('div');
+            block.className = 'msg-block msg-ai';
+            block.innerHTML = `
+            <div class="msg-header">
+                <div class="ai-badge">
+                    <div class="ai-sigil">AI</div>
+                    <span class="ai-name">ASSISTANT</span>
+                    <span class="ai-model">· ${MODEL.split('-').slice(0, 2).join('-')}</span>
+                </div>
+            </div>
+            <div class="msg-body md-body">
+                ${parseMarkdown(rawMarkdown)}
+            </div>`;
+            outputEl.appendChild(block);
+            scrollBottom();
+        }
+
+        function addSystemLine(text, type = 'system') {
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.style.cssText = 'opacity:0;animation:fadeInLine 0.25s ease forwards';
+            line.innerHTML = `<span class="line-prefix">›</span><span>${text}</span>`;
+            outputEl.appendChild(line);
+            scrollBottom();
+        }
+
+        /* ─────────────────────────────────────────────────────────────────
+           BACKEND  –  single fetch to Anthropic API
+           Raw response text (markdown) is extracted from content[0].text
+           and passed directly into parseMarkdown().
+        ───────────────────────────────────────────────────────────────── */
+        async function sendMessage() {
+            const val = inputEl.value.trim();
+            if (!val || isLoading) return;
+
+            /* update state */
+            cmdHistory.unshift(val);
+            historyIdx = -1;
+            inputEl.value = '';
+            tokenCounter.textContent = '0 chars';
+            isLoading = true;
+            sendBtn.disabled = true;
+
+            /* show user message */
+            addUserMessage(val);
+            messages.push({ role: 'user', content: val });
+            addTypingIndicator();
+
+            try {
+                /* ── API call ── */
+                const res = await window.pywebview.api.chat(messages);
+
+                /* ── raw markdown text from API ── */
+                const rawMd = res ?? '(empty response)';
+                messages.push({ role: 'assistant', content: rawMd });
+                addAiMessage(rawMd);          /* parser converts MD → styled HTML */
+
+
+            } catch (err) {
+                removeTypingIndicator();
+                addSystemLine(`> error: ${err.message}`, 'error');
+            }
+
+            isLoading = false;
+            sendBtn.disabled = false;
+            inputEl.focus();
+        }
+
+        /* ─── Input events ───────────────────────────────────────── */
+        inputEl.addEventListener('input', () => {
+            tokenCounter.textContent = `${inputEl.value.length} chars`;
+        });
+
+        inputEl.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey) { sendMessage(); return; }
+
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIdx < cmdHistory.length - 1) {
+                    inputEl.value = cmdHistory[++historyIdx];
+                    tokenCounter.textContent = `${inputEl.value.length} chars`;
+                }
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                historyIdx > 0
+                    ? (inputEl.value = cmdHistory[--historyIdx])
+                    : (historyIdx = -1, inputEl.value = '');
+                tokenCounter.textContent = `${inputEl.value.length} chars`;
+            }
+            if (e.ctrlKey && e.key === 'c') {
+                outputEl.querySelectorAll('.msg-block, .output-line:not(.system), .divider').forEach(el => el.remove());
+                addSystemLine('Session cleared. Context reset.', 'system');
+                messages.length = 0;
+            }
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+        inputEl.focus();
+    </script>
+</body>
+
+</html>

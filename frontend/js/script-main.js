@@ -70,6 +70,9 @@ function renderQuick() {
 
 
 }
+async function openChatbotWindow() {
+    await window.pywebview.api.open_chatbot()
+}
 async function openSearchWindow() {
     await window.pywebview.api.open_search()
 }

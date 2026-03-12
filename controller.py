@@ -70,6 +70,13 @@ class Controller:
         self.cli = CliPerformer(self.fs)
         self.performer = TaskPerformer(self.fs)
 
+        from Chatbot.mcp import FSTools
+        from Chatbot.bot import FSChatbot
+        self.tool = FSTools(self.performer)
+        self.chatbot = FSChatbot(self.tool)
+
+
+
         #  multi processing || TAG PROCESSING
         self.tag_pause_event.set()   # allow running
         self.tag_process = Process(
@@ -166,6 +173,11 @@ class Controller:
         if target == "CliPerformer":
             fn = getattr(self.cli, name)
             return fn(*args)
+        
+        if target == "Chatbot":
+            fn = getattr(self.chatbot, name)
+            return fn(*args)
+        
         logger.info('unknown task')
         return {"error": "unknown task"}
 

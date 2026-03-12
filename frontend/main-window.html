@@ -183,6 +183,9 @@
                 </div>
             </div>
             <div style="display: flex; gap: 12px; align-items: center;">
+                <button class="icon-btn" onclick="openChatbotWindow()" title="Cli">
+                    <span>ChatBot</span>
+                </button>
                 <button class="icon-btn" onclick="openCliWindow()" title="Cli">
                     <span>📊</span>
                 </button>
@@ -306,35 +309,6 @@
                     </div>
                     <div class="grid-content grid-view" id="gridContent">
                         <!-- Grid View Items -->
-                          <div class="file-item-list ${selectedFiles.has(index) ? 'selected' : ''} ${cutcopy.has(index) ? fs_state : ''} ${file.islock ? 'lock' : ''}" 
-                 onclick="selectFile(${index}, event)" 
-                 oncontextmenu="showContextMenuItems(event, ${index})">
-                <div class="file-info" ondblclick="openFileHandler('${file.name}')">
-                    <div class="file-icon-list" >
-                        
-                    </div>
-                    <div class="file-details">
-                        <div class="file-name-wrapper">
-                            <div class="file-name" 
-                                 id="fileName-${index}"
-                                 onclick="handleNameClick(event, ${index})"
-                                 ondblclick="startRename(event, ${index})">grrg</div>
-                            <input class="file-name-input" 
-                                   id="fileNameInput-${index}"
-                                   type="text" 
-                                   value="${file.name}"
-                                   style="display: none;"
-                                 onclick="event.stopPropagation()"
-                                   onkeydown="handleRenameKeydown(event, ${index})" >
-                        </div>
-                        <div class="file-type">file</div>
-                    </div>
-                </div>
-                <div class="file-size">1212</div>
-                <div class="file-date">dff</div>
-                <div class="file-typeD">fddf</div>
-                <div class="file-state file-indicator-grid">🟠</div>
-            </div>
                     </div>
                 </div>
             </div>

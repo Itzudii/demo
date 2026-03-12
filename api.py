@@ -35,8 +35,6 @@ class API:
             self._window = window
             self._window.events.closed += self._ctrl.on_close
 
-    
-
     def show_list(self):
         task = create_task("TaskPerformer","show_list")
         return self._ctrl.start_task(task)
@@ -143,6 +141,16 @@ class API:
          
 
     
+    def open_chatbot(self):
+        webview.create_window(
+            title="FS Manager",
+            url="frontend/chatbot.html",
+            width=550,
+            height=755,
+            resizable=False,
+            fullscreen=False,
+            js_api=self
+        )
     def open_search(self):
         webview.create_window(
             title="FS Manager",
@@ -204,6 +212,10 @@ class API:
     
     def exet_fstree(self,*args:Any):
         task = create_task("TaskPerformer","exet_fstree",*args)
+        return self._ctrl.start_task(task)
+    
+    def chat(self,*args:Any):
+        task = create_task("Chatbot","chat",*args)
         return self._ctrl.start_task(task)
 
 if __name__ == '__main__':
