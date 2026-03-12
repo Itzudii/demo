@@ -201,6 +201,10 @@ class API:
     def run_command(self,*args:Any):
         task = create_task("CliPerformer","run_command",*args)
         return self._ctrl.start_task(task)
+    
+    def exet_fstree(self,*args:Any):
+        task = create_task("TaskPerformer","exet_fstree",*args)
+        return self._ctrl.start_task(task)
 
 if __name__ == '__main__':
     os.makedirs(".database", exist_ok=True)

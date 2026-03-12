@@ -125,16 +125,16 @@ function handleBreadcrumbKeydown(event) {
 // Update breadcrumb buttons from currentPath array
 async function updateBreadcrumbButtons() {
     let response = await window.pywebview.api.path_breaker();
-    if (!response.success){
+    if (!response.success) {
         alert(response.msg)
-    }else{
+    } else {
 
         const data = response.data;
         // const cwd = await window.pywebview.api.get_cwd();
         const keys = Object.keys(data);
         const buttonsContainer = document.getElementById('breadcrumbButtons');
         buttonsContainer.innerHTML = '';
-        
+
         keys.forEach((filename, index) => {
             // Create breadcrumb item
             const item = document.createElement('span');
@@ -142,7 +142,7 @@ async function updateBreadcrumbButtons() {
             item.textContent = filename === "HOME" ? `🏠 ${filename}` : filename;
             item.onclick = (e) => navigateToBreadcrumbId(e, data[filename]);
             buttonsContainer.appendChild(item);
-            
+
             // Add separator if not last item
             if (index < keys.length - 1) {
                 const separator = document.createElement('span');
@@ -624,6 +624,19 @@ function openFile() {
         alert('Please select a file first');
     }
 }
+async function genrateProject() {
+    if (selectedFiles.size > 0) {
+        const fileIndex = Array.from(selectedFiles)[0];
+        console.log(files[fileIndex].id);
+        let response = await window.pywebview.api.exet_fstree(files[fileIndex].id);
+        console.log(response);
+        if (!response.success) {
+            alert(response.msg);
+        }
+    } else {
+        alert('Please select a file first');
+    }
+}
 
 // function renameFile() {
 //     if (selectedFiles.size === 0) {
@@ -791,7 +804,7 @@ async function lockItem() {
     });
     let response = await window.pywebview.api.lock_files(ids);
 
-    console.log(['LOCK RESULT',response.data]);
+    console.log(['LOCK RESULT', response.data]);
     await refresh();
 }
 async function unLockItem() {

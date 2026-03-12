@@ -11,6 +11,9 @@ from dependencies.storage import Storage
 from dependencies.logmanger import LogManager
 from dependencies.vector import MrVectorExpert
 
+import dependencies.icon
+import Scaffold.parser
+
 import os
 import sys
 import time
@@ -866,7 +869,8 @@ class FSManager:
                 "ext":node.ext,
                 "size":node.size,
                 "modified_time":dependencies.helperfuncUtils.formate_sttime(node.m_time),
-                "icon":'<svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#fff"><path d="m484-288 89-68 89 68-34-109.15L717-468H607.56L573-576l-34 108H429l89 70.85L484-288Zm-316 96q-29 0-50.5-21.5T96-264v-432q0-29.7 21.5-50.85Q139-768 168-768h216l96 96h312q29.7 0 50.85 21.15Q864-629.7 864-600v336q0 29-21.15 50.5T792-192H168Zm0-72h624v-336H450l-96-96H168v432Zm0 0v-432 432Z"/></svg>' if node.is_dir else '<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3"><path d="M263.72-96Q234-96 213-117.15T192-168v-624q0-29.7 21.15-50.85Q234.3-864 264-864h312l192 192v504q0 29.7-21.16 50.85Q725.68-96 695.96-96H263.72Zm.28-72h432v-456H528v-168H264v624Zm203.54-24q65.52 0 110.99-45.5T624-348v-132h-72v132q0 34.65-24.5 59.33Q503-264 467.51-264q-34.45 0-58.98-24.67Q384-313.35 384-348v-180q0-10 7.2-17t16.8-7q10 0 17 7t7 17v192h72v-192q0-40.32-27.77-68.16-27.78-27.84-68-27.84Q368-624 340-596.16q-28 27.84-28 68.16v180q0 65 45.5 110.5T467.54-192ZM264-792v189-189 624-624Z"/></svg>'
+                # "icon":'<svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#fff"><path d="m484-288 89-68 89 68-34-109.15L717-468H607.56L573-576l-34 108H429l89 70.85L484-288Zm-316 96q-29 0-50.5-21.5T96-264v-432q0-29.7 21.5-50.85Q139-768 168-768h216l96 96h312q29.7 0 50.85 21.15Q864-629.7 864-600v336q0 29-21.15 50.5T792-192H168Zm0-72h624v-336H450l-96-96H168v432Zm0 0v-432 432Z"/></svg>' if node.is_dir else '<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3"><path d="M263.72-96Q234-96 213-117.15T192-168v-624q0-29.7 21.15-50.85Q234.3-864 264-864h312l192 192v504q0 29.7-21.16 50.85Q725.68-96 695.96-96H263.72Zm.28-72h432v-456H528v-168H264v624Zm203.54-24q65.52 0 110.99-45.5T624-348v-132h-72v132q0 34.65-24.5 59.33Q503-264 467.51-264q-34.45 0-58.98-24.67Q384-313.35 384-348v-180q0-10 7.2-17t16.8-7q10 0 17 7t7 17v192h72v-192q0-40.32-27.77-68.16-27.78-27.84-68-27.84Q368-624 340-596.16q-28 27.84-28 68.16v180q0 65 45.5 110.5T467.54-192ZM264-792v189-189 624-624Z"/></svg>'
+                "icon":dependencies.icon.get_icon(node)
             }
 
     def show_list(self,filter:None = None): # verified
@@ -950,9 +954,15 @@ class FSManager:
             p_node.childs.pop(node.name)
             node.name = filename
             p_node.childs[filename] = node
+            data = dependencies.helperfuncUtils.name_ext(filename)
+            node.ext = data.get('ext','unknown')
+            node.is_hidden = data.get('ishidden','unknown')
 
             self.urgent_request({"name":'set_name',
                                      "para":(node.id,filename)})
+            
+            self.urgent_request({"name":'set_ext',
+                                     "para":(node.id,node.ext)})
           
     def _rename_memory(self,name:str,node:TreeNode)->bool: # verified
         old_add = self.get_path(node.id)
@@ -1374,4 +1384,19 @@ class FSManager:
         self.db_queue.task_done()
         return True
 
+    def execute_fstree(self,path,foldername = 'output_project'):
+        if foldername not in self.cwd.childs:
+        # foldername = self.create_dir('output_project')
+            return Scaffold.parser.execute(path,f'{self.get_path(self.cwd.id)}/{foldername}')
+        return self.execute_fstree(path,dependencies.helperfuncUtils.filename_dup_normalizer(foldername))
+
+    def execute_fstree_id(self,id):
+        path = self.get_path(id)
+        if path:
+            print(path,id)
+            return self.execute_fstree(path)
+        else:
+            return (False,'path not exist')
+        
+        
   

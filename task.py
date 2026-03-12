@@ -158,6 +158,10 @@ class TaskPerformer:
         ids= self.fs.search_paths_by_hash(hash_)
         paths = [self.fs.get_path(id) for id in ids]
         return success({'paths':list(paths)})
+    
+    def exet_fstree(self,id):
+        isSuccess,msg = self.fs.execute_fstree_id(id)
+        return base(isSuccess,msg)
     '''
     SEARCH.HTML
     '''

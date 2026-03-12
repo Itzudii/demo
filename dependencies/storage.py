@@ -221,6 +221,10 @@ class Storage:
     def set_vector(self, node_id:int, vector:Any):
         """Store or update vector for a node."""
         self.cursor.execute("UPDATE nodes SET vector=? WHERE id=?", (vector, node_id))
+
+    def set_ext(self, node_id:int, ext:str):
+        """Store or update vector for a node."""
+        self.cursor.execute("UPDATE nodes SET ext=? WHERE id=?", (ext, node_id))
         # self.conn.commit()
 
     def set_indicator(self, node_id:int, indicator:str):
